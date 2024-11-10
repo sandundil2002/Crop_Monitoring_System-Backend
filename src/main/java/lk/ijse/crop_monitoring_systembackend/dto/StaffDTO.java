@@ -1,5 +1,6 @@
 package lk.ijse.crop_monitoring_systembackend.dto;
 
+import lk.ijse.crop_monitoring_systembackend.customResponse.Response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class StaffDTO implements Serializable {
+public class StaffDTO implements Serializable, Response {
     private String staffId;
     private String firstName;
     private String lastName;

@@ -65,8 +65,12 @@ public class StaffServiceIMPL implements StaffService {
     }
 
     @Override
-    public StaffDTO searchStaff(String staffId) {
-        return null;
+    public StaffDTO searchStaff(String id) {
+        if (staffDAO.existsById(id)) {
+            return mappingUtil.staffConvertToDTO(staffDAO.getReferenceById(id));
+        } else {
+            throw new NotFoundException("Staff not found with id: " + id);
+        }
     }
 
     @Override

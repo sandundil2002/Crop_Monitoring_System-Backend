@@ -1,5 +1,7 @@
 package lk.ijse.crop_monitoring_systembackend.controller;
 
+import lk.ijse.crop_monitoring_systembackend.customResponse.ErrorResponse;
+import lk.ijse.crop_monitoring_systembackend.customResponse.Response;
 import lk.ijse.crop_monitoring_systembackend.dto.StaffDTO;
 import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedException;
 import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
@@ -43,14 +45,28 @@ public class StaffController {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }catch (NotFoundException e){
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            catch (DataPersistFailedException e){
+            }catch (DataPersistFailedException e){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }catch (Exception e){
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response findStaff(@PathVariable("id") String id) {
+        if (id != null) {
+            try {
+                return staffService.searchStaff(id);
+            } catch (NotFoundException e) {
+                return new ErrorResponse("Staff not found with id: " + id, HttpStatus.NOT_FOUND);
+            } catch (Exception e) {
+                return new ErrorResponse("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ErrorResponse("Invalid staff id", HttpStatus.BAD_REQUEST);
         }
     }
 }
