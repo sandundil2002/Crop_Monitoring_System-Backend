@@ -2,6 +2,7 @@ package lk.ijse.crop_monitoring_systembackend.service.impl;
 
 import lk.ijse.crop_monitoring_systembackend.dao.StaffDAO;
 import lk.ijse.crop_monitoring_systembackend.dto.StaffDTO;
+import lk.ijse.crop_monitoring_systembackend.entity.StaffEntity;
 import lk.ijse.crop_monitoring_systembackend.service.StaffService;
 import lk.ijse.crop_monitoring_systembackend.util.MappingUtil;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -22,8 +24,12 @@ public class StaffServiceIMPL implements StaffService {
     private MappingUtil mappingUtil;
 
     @Override
-    public void saveStaff(StaffDTO staffDTO) {
-
+    public void saveStaff(StaffDTO staff) {
+        staff.setStaffId(generateStaffID());
+        staff.setJoinedDate(LocalDate.now());
+        StaffEntity staffEntity = mappingUtil.staffConvertToEntity(staff);
+        staffDAO.save(staffEntity);
+        System.out.println("Staff saved successfully: " + staffEntity);
     }
 
     @Override

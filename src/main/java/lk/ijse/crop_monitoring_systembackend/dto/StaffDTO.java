@@ -1,6 +1,5 @@
 package lk.ijse.crop_monitoring_systembackend.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,5 +36,4 @@ public class StaffDTO implements Serializable {
     public enum Role {
         MANAGER, ADMINISTRATIVE, SCIENTIST, OTHER
     }
-
 }
