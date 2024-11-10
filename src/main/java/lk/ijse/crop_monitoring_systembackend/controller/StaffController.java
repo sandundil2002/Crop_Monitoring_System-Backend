@@ -1,5 +1,6 @@
 package lk.ijse.crop_monitoring_systembackend.controller;
 
+import jakarta.validation.Valid;
 import lk.ijse.crop_monitoring_systembackend.customResponse.ErrorResponse;
 import lk.ijse.crop_monitoring_systembackend.customResponse.Response;
 import lk.ijse.crop_monitoring_systembackend.dto.StaffDTO;
@@ -23,7 +24,7 @@ public class StaffController {
     private StaffService staffService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> saveStaff(@RequestBody StaffDTO staff) {
+    public ResponseEntity<Void> saveStaff(@Valid @RequestBody StaffDTO staff) {
         if (staff != null) {
             try {
                 staffService.saveStaff(staff);
@@ -40,7 +41,7 @@ public class StaffController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateStaff(@PathVariable("id") String id, @RequestBody StaffDTO staff) {
+    public ResponseEntity<String> updateStaff(@Valid @PathVariable("id") String id, @RequestBody StaffDTO staff) {
         if (id != null && staff != null) {
             try {
                 staffService.updateStaff(id, staff);
