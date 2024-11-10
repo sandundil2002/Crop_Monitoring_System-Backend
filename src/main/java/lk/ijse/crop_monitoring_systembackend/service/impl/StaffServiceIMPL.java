@@ -3,6 +3,7 @@ package lk.ijse.crop_monitoring_systembackend.service.impl;
 import lk.ijse.crop_monitoring_systembackend.dao.StaffDAO;
 import lk.ijse.crop_monitoring_systembackend.dto.StaffDTO;
 import lk.ijse.crop_monitoring_systembackend.entity.StaffEntity;
+import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
 import lk.ijse.crop_monitoring_systembackend.service.StaffService;
 import lk.ijse.crop_monitoring_systembackend.util.MappingUtil;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -33,8 +35,28 @@ public class StaffServiceIMPL implements StaffService {
     }
 
     @Override
-    public void updateStaff(StaffDTO staffDTO) {
-
+    public void updateStaff(String id, StaffDTO staff) {
+        Optional<StaffEntity> tmpStaffEntity = staffDAO.findById(id);
+        if (tmpStaffEntity.isPresent()) {
+            StaffEntity staffEntity = mappingUtil.staffConvertToEntity(staff);
+            tmpStaffEntity.get().setFirstName(staffEntity.getFirstName());
+            tmpStaffEntity.get().setLastName(staffEntity.getLastName());
+            tmpStaffEntity.get().setDesignation(staffEntity.getDesignation());
+            tmpStaffEntity.get().setGender(staffEntity.getGender());
+            tmpStaffEntity.get().setDateOfBirth(staffEntity.getDateOfBirth());
+            tmpStaffEntity.get().setAddressLine1(staffEntity.getAddressLine1());
+            tmpStaffEntity.get().setAddressLine2(staffEntity.getAddressLine2());
+            tmpStaffEntity.get().setAddressLine3(staffEntity.getAddressLine3());
+            tmpStaffEntity.get().setAddressLine4(staffEntity.getAddressLine4());
+            tmpStaffEntity.get().setAddressLine5(staffEntity.getAddressLine5());
+            tmpStaffEntity.get().setMobile(staffEntity.getMobile());
+            tmpStaffEntity.get().setEmail(staffEntity.getEmail());
+            tmpStaffEntity.get().setRole(staffEntity.getRole());
+            tmpStaffEntity.get().setVehicle(staffEntity.getVehicle());
+            System.out.println("Staff updated successfully: " + tmpStaffEntity.get());
+        } else {
+            throw new NotFoundException("Staff not found with id: " + id);
+        }
     }
 
     @Override

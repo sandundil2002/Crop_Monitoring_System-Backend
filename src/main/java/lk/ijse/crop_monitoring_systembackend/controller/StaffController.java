@@ -2,6 +2,7 @@ package lk.ijse.crop_monitoring_systembackend.controller;
 
 import lk.ijse.crop_monitoring_systembackend.dto.StaffDTO;
 import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedException;
+import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
 import lk.ijse.crop_monitoring_systembackend.service.StaffService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,26 @@ public class StaffController {
                 staffService.saveStaff(staff);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             }catch (DataPersistFailedException e){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }catch (Exception e){
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateStaff(@PathVariable("id") String id, @RequestBody StaffDTO staff) {
+        if (id != null && staff != null) {
+            try {
+                staffService.updateStaff(id, staff);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }catch (NotFoundException e){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            catch (DataPersistFailedException e){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }catch (Exception e){
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
