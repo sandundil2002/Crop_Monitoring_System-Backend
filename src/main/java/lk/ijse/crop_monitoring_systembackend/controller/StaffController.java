@@ -80,4 +80,20 @@ public class StaffController {
             return null;
         }
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deleteStaff(@PathVariable("id") String id) {
+        if (id != null) {
+            try {
+                staffService.deleteStaff(id);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } catch (NotFoundException e) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

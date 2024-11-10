@@ -74,8 +74,14 @@ public class StaffServiceIMPL implements StaffService {
     }
 
     @Override
-    public void deleteStaff(String staffId) {
-
+    public boolean deleteStaff(String id) {
+        if (staffDAO.existsById(id)) {
+            staffDAO.deleteById(id);
+            System.out.println("Staff deleted successfully: " + id);
+            return true;
+        } else {
+            throw new NotFoundException("Staff not found with id: " + id);
+        }
     }
 
     private String generateStaffID() {
