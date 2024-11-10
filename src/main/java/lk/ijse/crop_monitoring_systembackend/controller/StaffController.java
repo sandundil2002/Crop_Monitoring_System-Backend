@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/staff")
 @RequiredArgsConstructor
@@ -67,6 +69,15 @@ public class StaffController {
             }
         } else {
             return new ErrorResponse("Invalid staff id", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<StaffDTO> getAllStaffs() {
+        try {
+            return staffService.getAllStaffs();
+        } catch (Exception e) {
+            return null;
         }
     }
 }

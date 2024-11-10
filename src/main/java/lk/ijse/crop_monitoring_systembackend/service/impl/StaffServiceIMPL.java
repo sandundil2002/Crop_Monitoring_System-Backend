@@ -60,11 +60,6 @@ public class StaffServiceIMPL implements StaffService {
     }
 
     @Override
-    public void deleteStaff(String staffId) {
-
-    }
-
-    @Override
     public StaffDTO searchStaff(String id) {
         if (staffDAO.existsById(id)) {
             return mappingUtil.staffConvertToDTO(staffDAO.getReferenceById(id));
@@ -75,7 +70,12 @@ public class StaffServiceIMPL implements StaffService {
 
     @Override
     public List<StaffDTO> getAllStaffs() {
-        return List.of();
+        return mappingUtil.staffConvertToDTOList(staffDAO.findAll());
+    }
+
+    @Override
+    public void deleteStaff(String staffId) {
+
     }
 
     private String generateStaffID() {
