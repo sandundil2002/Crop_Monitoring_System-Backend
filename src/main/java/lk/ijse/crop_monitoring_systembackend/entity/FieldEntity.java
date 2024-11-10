@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -25,14 +26,8 @@ public class FieldEntity implements Serializable {
     private List<EquipmentEntity> equipment;
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
     private List<LogEntity> logs;
-    @ManyToMany
-    @JoinTable(name = "field_crop",
-            joinColumns = @JoinColumn(name = "field_id"),
-            inverseJoinColumns = @JoinColumn(name = "crop_id"))
-    private List<CropEntity> crops;
-    @ManyToMany
-    @JoinTable(name = "field_staff",
-            joinColumns = @JoinColumn(name = "field_id"),
-            inverseJoinColumns = @JoinColumn(name = "staff_id"))
-    private List<StaffEntity> staff;
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
+    private List<FieldCropEntity> fieldCrops = new ArrayList<>();
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
+    private List<FieldStaffEntity> fieldStaffs = new ArrayList<>();
 }

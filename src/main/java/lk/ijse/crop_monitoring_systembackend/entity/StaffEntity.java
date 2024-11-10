@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -38,8 +39,10 @@ public class StaffEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
     private VehicleEntity vehicle;
-    @ManyToMany(mappedBy = "staff")
-    private List<FieldEntity> fields;
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+    private List<FieldStaffEntity> fieldStaff = new ArrayList<>();
+    @OneToMany(mappedBy = "staffEntity", cascade = CascadeType.ALL)
+    private List<StaffLogEntity> staffLog = new ArrayList<>();
 
     public enum Gender {
         MALE, FEMALE, OTHER

@@ -6,28 +6,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "logs")
+@Table(name = "field_crop")
 @Entity
-public class LogEntity implements Serializable {
+public class FieldCropEntity implements Serializable {
     @Id
-    private String logId;
-    private LocalDate date;
-    private String details;
-    private String temperature;
-    private String observedImg;
+    private String fieldCropId;
     @ManyToOne
     @JoinColumn(name = "field_id")
     private FieldEntity field;
     @ManyToOne
     @JoinColumn(name = "crop_id")
     private CropEntity crop;
-    @OneToMany(mappedBy = "logEntity", cascade = CascadeType.ALL)
-    private List<StaffLogEntity> staffLog = new ArrayList<>();
 }

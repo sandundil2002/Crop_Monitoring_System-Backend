@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -23,6 +24,6 @@ public class CropEntity implements Serializable {
     private String cropImg;
     @OneToMany(mappedBy = "crop", cascade = CascadeType.ALL)
     private List<LogEntity> logs;
-    @ManyToMany(mappedBy = "crops")
-    private List<FieldEntity> fields;
+    @OneToMany(mappedBy = "crop", cascade = CascadeType.ALL)
+    private List<FieldCropEntity> fieldCrops = new ArrayList<>();
 }
