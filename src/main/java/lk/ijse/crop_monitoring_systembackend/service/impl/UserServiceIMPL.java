@@ -60,7 +60,13 @@ public class UserServiceIMPL implements UserService {
 
     @Override
     public boolean deleteUser(String email) {
-        return false;
+        Optional<UserEntity> user = userDAO.findByEmail(email);
+        if (user.isPresent()) {
+            userDAO.delete(user.get());
+            return true;
+        } else {
+            throw new NotFoundException("User not found with email: " + email);
+        }
     }
 
     private StaffEntity.Role getUserRole(String email) {

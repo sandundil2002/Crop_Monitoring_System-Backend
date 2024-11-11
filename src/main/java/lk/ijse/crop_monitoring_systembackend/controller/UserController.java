@@ -67,4 +67,26 @@ public class UserController {
         }
     }
 
+    @DeleteMapping(value = "/{email}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("email") String email) {
+        if (email != null) {
+            try {
+                boolean deleted = userService.deleteUser(email);
+                if (deleted) {
+                    logger.info("User deleted successfully with email: " + email);
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+            } catch (NotFoundException e) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } catch (Exception e) {
+                logger.severe("Failed to delete user with email: " + email);
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
