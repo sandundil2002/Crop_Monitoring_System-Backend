@@ -42,7 +42,14 @@ public class UserServiceIMPL implements UserService {
 
     @Override
     public void updateUser(String email, UserDTO user) {
-
+        Optional<UserEntity> tmpUserEntity = userDAO.findByEmail(email);
+        if (tmpUserEntity.isPresent()){
+            UserEntity userEntity = mappingUtil.userConvertToEntity(user);
+            tmpUserEntity.get().setPassword(userEntity.getPassword());
+            System.out.println("User password updated successfully: " + tmpUserEntity.get());
+        } else {
+            throw new NotFoundException("User not found with email: " + email);
+        }
     }
 
     @Override

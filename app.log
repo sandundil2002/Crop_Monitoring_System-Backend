@@ -43,3 +43,12 @@
 16:18:50:359 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 5940 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
 16:18:50:362 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
 16:18:54:792 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 4.794 seconds (process running for 5.578)
+16:52:46:453 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 17472 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+16:52:46:470 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+16:52:53:534 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 7.81 seconds (process running for 8.859)
+16:54:09:919 [http-nio-8080-exec-3] INFO  l.i.c.controller.UserController - User password updated successfully: UserDTO(email=john@gmail.com, password=2580, role=null)
+16:54:44:887 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 17732 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+16:54:44:908 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+16:54:50:399 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 6.2 seconds (process running for 7.053)
+16:54:58:946 [http-nio-8080-exec-2] INFO  l.i.c.controller.UserController - User saved successfully: UserDTO(email=john@gmail.com, password=123456, role=MANAGER)
+16:55:13:788 [http-nio-8080-exec-5] INFO  l.i.c.controller.UserController - User password updated successfully: UserDTO(email=john@gmail.com, password=2580, role=null)
