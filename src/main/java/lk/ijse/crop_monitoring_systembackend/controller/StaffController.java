@@ -99,9 +99,13 @@ public class StaffController {
     public ResponseEntity<String> deleteStaff(@PathVariable("id") String id) {
         if (id != null) {
             try {
-                staffService.deleteStaff(id);
-                logger.info("Staff deleted successfully: " + id);
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                boolean deleted = staffService.deleteStaff(id);
+                if (deleted) {
+                    logger.info("Staff deleted successfully: " + id);
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
             } catch (NotFoundException e) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             } catch (Exception e) {
