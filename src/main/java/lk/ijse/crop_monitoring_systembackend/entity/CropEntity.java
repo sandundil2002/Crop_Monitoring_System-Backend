@@ -21,6 +21,7 @@ public class CropEntity implements Serializable {
     private String scientificName;
     private String category;
     private String season;
+    @Column(columnDefinition = "LONGTEXT")
     private String cropImg;
     @OneToMany(mappedBy = "crop", cascade = CascadeType.ALL)
     private List<LogEntity> logs;

@@ -1,7 +1,9 @@
 package lk.ijse.crop_monitoring_systembackend.util;
 
+import lk.ijse.crop_monitoring_systembackend.dto.FieldDTO;
 import lk.ijse.crop_monitoring_systembackend.dto.StaffDTO;
 import lk.ijse.crop_monitoring_systembackend.dto.UserDTO;
+import lk.ijse.crop_monitoring_systembackend.entity.FieldEntity;
 import lk.ijse.crop_monitoring_systembackend.entity.StaffEntity;
 import lk.ijse.crop_monitoring_systembackend.entity.UserEntity;
 import org.modelmapper.ModelMapper;
@@ -37,16 +39,17 @@ public class MappingUtil {
         return modelMapper.map(userDTO, UserEntity.class);
     }
 
-    //Maters of StaffEntity & UserEntity
-    public StaffDTO staffConvertToDTO(UserEntity userEntity) {
-        return modelMapper.map(userEntity, StaffDTO.class);
+    //Maters of FieldEntity & FieldDTO
+    public FieldDTO fieldConvertToDTO(FieldEntity fieldEntity) {
+        return modelMapper.map(fieldEntity, FieldDTO.class);
     }
 
-    public UserEntity userConvertToEntity(StaffDTO staffDTO) {
-        return modelMapper.map(staffDTO, UserEntity.class);
+    public FieldEntity fieldConvertToEntity(FieldDTO fieldDTO) {
+        return modelMapper.map(fieldDTO, FieldEntity.class);
     }
 
-    public List<UserDTO> userConvertToDTOList(List<UserEntity> userEntities) {
-        return userEntities.stream().map(this::userConvertToDTO).toList();
+    public List<FieldDTO> fieldConvertToDTOList(List<FieldEntity> fieldEntities) {
+        return fieldEntities.stream().map(this::fieldConvertToDTO).toList();
     }
+
 }

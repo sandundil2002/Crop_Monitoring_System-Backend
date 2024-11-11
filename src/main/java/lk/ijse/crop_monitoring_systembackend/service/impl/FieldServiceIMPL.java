@@ -23,7 +23,9 @@ public class FieldServiceIMPL implements FieldService {
 
     @Override
     public void saveField(FieldDTO field) {
-
+        field.setFieldId(generateFieldID());
+        fieldDAO.save(mappingUtil.fieldConvertToEntity(field));
+        System.out.println("Field saved successfully: " + field);
     }
 
     @Override
@@ -44,5 +46,21 @@ public class FieldServiceIMPL implements FieldService {
     @Override
     public List<FieldDTO> getAllFields() {
         return List.of();
+    }
+
+    private String generateFieldID() {
+        if (fieldDAO.count() == 0) {
+            return "F001";
+        } else {
+            String lastId = fieldDAO.findAll().get(fieldDAO.findAll().size() - 1).getFieldId();
+            int newId = Integer.parseInt(lastId.substring(1)) + 1;
+            if (newId < 10) {
+                return "F00" + newId;
+            } else if (newId < 100) {
+                return "F0" + newId;
+            } else {
+                return "F" + newId;
+            }
+        }
     }
 }
