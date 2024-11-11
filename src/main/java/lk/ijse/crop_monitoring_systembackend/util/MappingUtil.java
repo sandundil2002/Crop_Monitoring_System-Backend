@@ -37,4 +37,16 @@ public class MappingUtil {
         return modelMapper.map(userDTO, UserEntity.class);
     }
 
+    //Maters of StaffEntity & UserEntity
+    public StaffDTO staffConvertToDTO(UserEntity userEntity) {
+        return modelMapper.map(userEntity, StaffDTO.class);
+    }
+
+    public UserEntity userConvertToEntity(StaffDTO staffDTO) {
+        return modelMapper.map(staffDTO, UserEntity.class);
+    }
+
+    public List<UserDTO> userConvertToDTOList(List<UserEntity> userEntities) {
+        return userEntities.stream().map(this::userConvertToDTO).toList();
+    }
 }

@@ -54,7 +54,7 @@ public class AuthController {
 
     @PostMapping(value = "/signin")
     public ResponseEntity<JWTAuthResponse> signIn(@RequestBody SignIn sign) {
-        System.out.println("sign = " + sign);
+        logger.info("User signed in successfully: " + sign);
         return ResponseEntity.ok(authenticationService.signIn(sign));
     }
 
