@@ -11,6 +11,7 @@ import lk.ijse.crop_monitoring_systembackend.service.UserService;
 import lk.ijse.crop_monitoring_systembackend.util.MappingUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,6 +68,11 @@ public class UserServiceIMPL implements UserService {
         } else {
             throw new NotFoundException("User not found with email: " + email);
         }
+    }
+
+    @Override
+    public UserDetailsService userDetailsService() {
+        return email -> userDAO.findByEmail(email).orElseThrow(() -> new NotFoundException("User not found"));
     }
 
     private StaffEntity.Role getUserRole(String email) {
