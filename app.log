@@ -220,3 +220,13 @@ io.jsonwebtoken.ExpiredJwtException: JWT expired 178863 milliseconds ago at 2024
 18:50:58:994 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
 18:51:06:308 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 7.92 seconds (process running for 8.736)
 18:51:11:515 [http-nio-8080-exec-1] INFO  l.i.c.controller.AuthController - User saved successfully: UserDTO(email=john@gmail.com, password=$2a$10$xifD4NrHwKUO8eOI.WPwTOvggO8Ab7Ovon83xCNqdpvjT0KY7HXtO, role=MANAGER)
+18:55:31:024 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 16856 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+18:55:31:030 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+18:55:39:467 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 8.888 seconds (process running for 9.859)
+18:56:00:599 [http-nio-8080-exec-3] INFO  l.i.c.controller.UserController - User password updated successfully: UserDTO(email=john@gmail.com, password=2580, role=null)
+18:56:50:867 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 4484 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+18:56:50:869 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+18:56:55:447 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 4.994 seconds (process running for 5.688)
+18:57:10:829 [http-nio-8080-exec-3] INFO  l.i.c.controller.UserController - User password updated successfully: UserDTO(email=john@gmail.com, password=$2a$10$xTIRSXT.NTay917IUAW9KuU8BuN1eP.2RED13bISmPufBWszfHz9C, role=null)
+18:57:45:771 [http-nio-8080-exec-4] INFO  l.i.c.controller.UserController - User deleted successfully with email: john@gmail.com
+18:58:14:524 [http-nio-8080-exec-6] INFO  l.i.c.controller.AuthController - User saved successfully: UserDTO(email=john@gmail.com, password=$2a$10$WVhC2HZ9KZWf8Ww/wor/gedrRtpYQMngYDZevBbHSNWnqowHqV/4i, role=MANAGER)
