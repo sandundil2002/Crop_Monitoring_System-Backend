@@ -1,0 +1,65 @@
+package lk.ijse.crop_monitoring_systembackend.controller;
+
+import lk.ijse.crop_monitoring_systembackend.dto.UserDTO;
+import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedException;
+import lk.ijse.crop_monitoring_systembackend.jwtModel.JWTAuthResponse;
+import lk.ijse.crop_monitoring_systembackend.jwtModel.SignIn;
+import lk.ijse.crop_monitoring_systembackend.service.AuthenticationService;
+import lk.ijse.crop_monitoring_systembackend.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.logging.Logger;
+
+@RestController
+@RequestMapping(value = "/api/v1/auth")
+@RequiredArgsConstructor
+public class AuthController {
+    @Autowired
+    private UserService userService;
+    private final AuthenticationService authenticationService;
+    private final PasswordEncoder passwordEncoder;
+
+    private static final Logger logger = Logger.getLogger(AuthController.class.getName());
+
+    @PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<JWTAuthResponse> saveUser(@RequestBody UserDTO user) {
+        if (user != null) {
+            try {
+                boolean exist = userService.searchUser(user.getEmail());
+                if (exist) {
+                    user.setPassword(passwordEncoder.encode(user.getPassword()));
+                    userService.saveUser(user);
+                    logger.info("User saved successfully: " + user);
+                    return ResponseEntity.ok(authenticationService.signUp(user));
+                } else {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+            } catch (DataPersistFailedException e) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            } catch (Exception e) {
+                logger.severe("Failed to save user: " + user);
+                System.out.println(e.getMessage());
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = "/signin")
+    public ResponseEntity<JWTAuthResponse> signIn(@RequestBody SignIn sign) {
+        System.out.println("sign = " + sign);
+        return ResponseEntity.ok(authenticationService.signIn(sign));
+    }
+
+    @PostMapping("refresh")
+    public ResponseEntity<JWTAuthResponse> refreshToken (@RequestParam("refreshToken") String refreshToken) {
+        return ResponseEntity.ok(authenticationService.refreshToken(refreshToken));
+    }
+}

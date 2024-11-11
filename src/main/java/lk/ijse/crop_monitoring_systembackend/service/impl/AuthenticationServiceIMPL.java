@@ -26,7 +26,7 @@ public class AuthenticationServiceIMPL implements AuthenticationService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signIn.getEmail(),signIn.getPassword()));
         var userByEmail = userDAO.findByEmail(signIn.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         var generatedToken = jwtService.generateToken(userByEmail);
-        return JWTAuthResponse.builder().token(generatedToken).build() ;
+        return JWTAuthResponse.builder().token(generatedToken).build();
     }
 
     @Override
