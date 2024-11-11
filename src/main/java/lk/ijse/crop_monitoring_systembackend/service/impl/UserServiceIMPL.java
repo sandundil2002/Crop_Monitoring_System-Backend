@@ -1,13 +1,20 @@
 package lk.ijse.crop_monitoring_systembackend.service.impl;
 
+import lk.ijse.crop_monitoring_systembackend.dao.StaffDAO;
 import lk.ijse.crop_monitoring_systembackend.dao.UserDAO;
 import lk.ijse.crop_monitoring_systembackend.dto.UserDTO;
+import lk.ijse.crop_monitoring_systembackend.entity.StaffEntity;
+import lk.ijse.crop_monitoring_systembackend.entity.UserEntity;
+import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedException;
+import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
 import lk.ijse.crop_monitoring_systembackend.service.UserService;
 import lk.ijse.crop_monitoring_systembackend.util.MappingUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -17,11 +24,20 @@ public class UserServiceIMPL implements UserService {
     private UserDAO userDAO;
 
     @Autowired
+    private StaffDAO staffDAO;
+
+    @Autowired
     private MappingUtil mappingUtil;
 
     @Override
     public void saveUser(UserDTO user) {
-
+        user.setRole(UserDTO.Role.valueOf(getUserRole(user.getEmail()).name()));
+        UserEntity savedUser = userDAO.save(mappingUtil.userConvertToEntity(user));
+        if (savedUser != null) {
+            System.out.println("User saved successfully");
+        } else {
+            throw new DataPersistFailedException("User save unsuccessful");
+        }
     }
 
     @Override
@@ -30,7 +46,20 @@ public class UserServiceIMPL implements UserService {
     }
 
     @Override
+    public boolean searchUser(String email) {
+        Optional<StaffEntity> user = staffDAO.findByEmail(email);
+        return user.isPresent();
+    }
+
+    @Override
     public boolean deleteUser(String email) {
         return false;
+    }
+
+    private StaffEntity.Role getUserRole(String email) {
+        return staffDAO.findByEmail(email)
+                .map(StaffEntity::getRole)
+                .orElseThrow(() ->
+                        new NotFoundException("User not found for email: " + email));
     }
 }
