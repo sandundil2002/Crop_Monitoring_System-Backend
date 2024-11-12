@@ -123,4 +123,26 @@ public class FieldController {
             return null;
         }
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deleteField(@PathVariable("id") String id) {
+        if (id != null) {
+            try {
+                boolean deleted = fieldService.deleteField(id);
+                if (deleted) {
+                    logger.info("Field deleted successfully: " + id);
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
+            } catch (NotFoundException e) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } catch (Exception e) {
+                logger.severe("Failed to delete field: " + id);
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

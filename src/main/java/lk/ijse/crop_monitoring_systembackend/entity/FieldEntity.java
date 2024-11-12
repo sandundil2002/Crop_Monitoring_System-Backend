@@ -21,9 +21,7 @@ public class FieldEntity implements Serializable {
     private String fieldName;
     private Point location;
     private String size;
-    @Column(columnDefinition = "LONGTEXT")
     private String fieldImg1;
-    @Column(columnDefinition = "LONGTEXT")
     private String fieldImg2;
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
     private List<EquipmentEntity> equipment;

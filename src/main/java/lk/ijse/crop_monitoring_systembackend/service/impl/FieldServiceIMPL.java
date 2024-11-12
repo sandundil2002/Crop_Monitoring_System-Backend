@@ -56,7 +56,13 @@ public class FieldServiceIMPL implements FieldService {
 
     @Override
     public boolean deleteField(String id) {
-        return false;
+        if (fieldDAO.existsById(id)) {
+            fieldDAO.deleteById(id);
+            System.out.println("Field deleted successfully with id: " + id);
+            return true;
+        } else {
+            throw new NotFoundException("Field not found with id: " + id);
+        }
     }
 
     @Override

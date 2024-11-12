@@ -48,3 +48,7 @@
 10:32:56:972 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 16.18 seconds (process running for 19.037)
 10:33:47:169 [http-nio-8080-exec-4] INFO  l.i.c.controller.FieldController - Field saved successfully: Wheat
 10:34:17:621 [http-nio-8080-exec-5] INFO  l.i.c.controller.FieldController - All fields found
+10:36:37:169 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 10436 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+10:36:37:219 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+10:36:43:960 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 7.498 seconds (process running for 8.601)
+10:37:29:787 [http-nio-8080-exec-1] INFO  l.i.c.controller.FieldController - Field deleted successfully: F002
