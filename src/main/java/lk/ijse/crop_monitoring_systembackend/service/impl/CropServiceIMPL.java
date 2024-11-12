@@ -23,7 +23,8 @@ public class CropServiceIMPL implements CropService {
 
     @Override
     public void saveCrop(CropDTO crop) {
-
+        crop.setCropId(generateCropID());
+        cropDAO.save(mappingUtil.cropConvertToEntity(crop));
     }
 
     @Override
@@ -44,5 +45,21 @@ public class CropServiceIMPL implements CropService {
     @Override
     public List<CropDTO> getAllCrops() {
         return List.of();
+    }
+
+    private String generateCropID() {
+        if (cropDAO.count() == 0) {
+            return "C001";
+        } else {
+            String lastId = cropDAO.findAll().get(cropDAO.findAll().size() - 1).getCropId();
+            int newId = Integer.parseInt(lastId.substring(1)) + 1;
+            if (newId < 10) {
+                return "C00" + newId;
+            } else if (newId < 100) {
+                return "C0" + newId;
+            } else {
+                return "C" + newId;
+            }
+        }
     }
 }
