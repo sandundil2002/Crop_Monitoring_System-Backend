@@ -5,6 +5,7 @@ import lk.ijse.crop_monitoring_systembackend.customResponse.ErrorResponse;
 import lk.ijse.crop_monitoring_systembackend.customResponse.Response;
 import lk.ijse.crop_monitoring_systembackend.dto.CropDTO;
 import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedException;
+import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
 import lk.ijse.crop_monitoring_systembackend.service.CropService;
 import lk.ijse.crop_monitoring_systembackend.util.AppUtil;
 import lombok.RequiredArgsConstructor;
@@ -110,6 +111,28 @@ public class CropController {
         } catch (Exception e) {
             logger.severe("Failed to fetch all crops");
             return null;
+        }
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deleteCrop(@PathVariable String id) {
+        if (id != null) {
+            try {
+                boolean deleted = cropService.deleteCrop(id);
+                if (deleted){
+                    logger.info("Crop deleted successfully with id: " + id);
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
+            } catch (NotFoundException e){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } catch (Exception e) {
+                logger.severe("Failed to delete crop with id: " + id);
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }

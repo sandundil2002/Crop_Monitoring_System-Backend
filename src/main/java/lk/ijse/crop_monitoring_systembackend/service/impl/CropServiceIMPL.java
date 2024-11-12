@@ -56,7 +56,13 @@ public class CropServiceIMPL implements CropService {
 
     @Override
     public boolean deleteCrop(String id) {
-        return false;
+        if (cropDAO.existsById(id)) {
+            cropDAO.deleteById(id);
+            System.out.println("Crop deleted successfully with id: " + id);
+            return true;
+        } else {
+            throw new NotFoundException("Crop not found with id: " + id);
+        }
     }
 
     @Override
