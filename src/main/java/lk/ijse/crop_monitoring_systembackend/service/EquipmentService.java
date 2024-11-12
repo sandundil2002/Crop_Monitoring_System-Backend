@@ -7,7 +7,7 @@ import java.util.List;
 public interface EquipmentService {
     void saveEquipment(EquipmentDTO equipment);
     void updateEquipment(String id, EquipmentDTO equipment);
-    EquipmentDTO getEquipmentById(String id);
+    EquipmentDTO searchEquipment(String id);
     boolean deleteEquipment(String id);
     List<EquipmentDTO> getAllEquipments();
 }

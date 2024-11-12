@@ -1,6 +1,8 @@
 package lk.ijse.crop_monitoring_systembackend.controller;
 
 import jakarta.validation.Valid;
+import lk.ijse.crop_monitoring_systembackend.customResponse.ErrorResponse;
+import lk.ijse.crop_monitoring_systembackend.customResponse.Response;
 import lk.ijse.crop_monitoring_systembackend.dto.EquipmentDTO;
 import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedException;
 import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
@@ -59,6 +61,25 @@ public class EquipmentController {
             }
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response searchEquipment(@PathVariable("id") String id) {
+        if (id != null) {
+            try {
+                EquipmentDTO equipmentDTO = equipmentService.searchEquipment(id);
+                logger.info("Equipment found successfully: " + equipmentDTO);
+                return equipmentDTO;
+            } catch (NotFoundException e) {
+                return new ErrorResponse ("Equipment not found with id: " + id, HttpStatus.NOT_FOUND);
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.severe("Failed to find equipment with id: " + id);
+                return new ErrorResponse("Failed to find equipment with id: " + id, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ErrorResponse("Invalid equipment id", HttpStatus.BAD_REQUEST);
         }
     }
 }

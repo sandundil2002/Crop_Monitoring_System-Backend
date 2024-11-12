@@ -48,8 +48,14 @@ public class EquipmentServiceIMPL implements EquipmentService {
     }
 
     @Override
-    public EquipmentDTO getEquipmentById(String id) {
-        return null;
+    public EquipmentDTO searchEquipment(String id) {
+        if (equipmentDAO.existsById(id)) {
+            EquipmentDTO equipmentDTO = mappingUtil.equipmentConvertToDTO(equipmentDAO.getReferenceById(id));
+            System.out.println("Equipment searched successfully: " + equipmentDTO);
+            return equipmentDTO;
+        } else {
+            throw new NotFoundException("Equipment not found with id: " + id);
+        }
     }
 
     @Override
