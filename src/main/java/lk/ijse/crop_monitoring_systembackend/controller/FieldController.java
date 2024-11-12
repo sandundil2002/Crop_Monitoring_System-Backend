@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.*;
+import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
@@ -108,6 +109,18 @@ public class FieldController {
             }
         } else {
             return new ErrorResponse("Invalid field id", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public  List<FieldDTO> getAllFields() {
+        try {
+            List<FieldDTO> allFields = fieldService.getAllFields();
+            logger.info("All fields found");
+            return allFields;
+        } catch (Exception e) {
+            logger.severe("Failed to find all fields");
+            return null;
         }
     }
 }

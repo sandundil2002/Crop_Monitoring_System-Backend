@@ -61,7 +61,7 @@ public class FieldServiceIMPL implements FieldService {
 
     @Override
     public List<FieldDTO> getAllFields() {
-        return List.of();
+        return mappingUtil.fieldConvertToDTOList(fieldDAO.findAll());
     }
 
     private String generateFieldID() {
