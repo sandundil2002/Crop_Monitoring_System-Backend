@@ -47,7 +47,11 @@ public class CropServiceIMPL implements CropService {
 
     @Override
     public CropDTO searchCrop(String id) {
-        return null;
+        if (cropDAO.existsById(id)) {
+            return mappingUtil.cropConvertToDTO(cropDAO.getReferenceById(id));
+        } else {
+            throw new NotFoundException("Crop not found with id: " + id);
+        }
     }
 
     @Override

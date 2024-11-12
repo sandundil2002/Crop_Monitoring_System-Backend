@@ -1,5 +1,8 @@
 package lk.ijse.crop_monitoring_systembackend.controller;
 
+import jakarta.validation.Valid;
+import lk.ijse.crop_monitoring_systembackend.customResponse.ErrorResponse;
+import lk.ijse.crop_monitoring_systembackend.customResponse.Response;
 import lk.ijse.crop_monitoring_systembackend.dto.CropDTO;
 import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedException;
 import lk.ijse.crop_monitoring_systembackend.service.CropService;
@@ -25,6 +28,7 @@ public class CropController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> saveCrop(
+            @Valid
             @RequestPart("commonName") String commonName,
             @RequestPart("scientificName") String scientificName,
             @RequestPart("category") String category,
@@ -55,6 +59,7 @@ public class CropController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> updateCrop(
+            @Valid
             @PathVariable String id,
             @RequestPart("commonName") String commonName,
             @RequestPart("scientificName") String scientificName,
@@ -80,6 +85,18 @@ public class CropController {
             e.printStackTrace();
             logger.severe("Failed to update crop: " + commonName);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response searchCrop(@PathVariable String id) {
+        try {
+            CropDTO cropDTO = cropService.searchCrop(id);
+            logger.info("Crop searched successfully: " + cropDTO.getCommonName());
+            return cropDTO;
+        } catch (Exception e) {
+            logger.severe("Failed to search crop with id: " + id);
+            return new ErrorResponse("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
