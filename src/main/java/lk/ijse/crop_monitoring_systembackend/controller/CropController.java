@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
@@ -97,6 +98,18 @@ public class CropController {
         } catch (Exception e) {
             logger.severe("Failed to search crop with id: " + id);
             return new ErrorResponse("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<CropDTO> getAllCrops() {
+        try {
+            List<CropDTO> allCrops = cropService.getAllCrops();
+            logger.info("All crops fetched successfully");
+            return allCrops;
+        } catch (Exception e) {
+            logger.severe("Failed to fetch all crops");
+            return null;
         }
     }
 }
