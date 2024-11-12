@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.logging.Logger;
@@ -51,6 +48,37 @@ public class CropController {
         } catch (Exception e) {
             e.printStackTrace();
             logger.severe("Failed to save crop: " + commonName);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> updateCrop(
+            @PathVariable String id,
+            @RequestPart("commonName") String commonName,
+            @RequestPart("scientificName") String scientificName,
+            @RequestPart("category") String category,
+            @RequestPart("season") String season,
+            @RequestPart("cropImg") MultipartFile cropImg) {
+        try {
+            byte[] img = cropImg.getBytes();
+            String base64Img = AppUtil.toBase64Pic(img);
+            CropDTO cropDTO = new CropDTO();
+            cropDTO.setCommonName(commonName);
+            cropDTO.setScientificName(scientificName);
+            cropDTO.setCategory(category);
+            cropDTO.setSeason(season);
+            cropDTO.setCropImg(base64Img);
+            cropService.updateCrop(id, cropDTO);
+            logger.info("Crop updated successfully: " + commonName);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (DataPersistFailedException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.severe("Failed to update crop: " + commonName);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

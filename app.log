@@ -74,3 +74,7 @@
 15:26:10:746 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
 15:26:19:772 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 9.5 seconds (process running for 10.941)
 15:26:25:513 [http-nio-8080-exec-2] INFO  l.i.c.controller.CropController - Crop saved successfully: Rice
+15:31:07:735 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 20272 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+15:31:07:739 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+15:31:15:544 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 8.349 seconds (process running for 10.283)
+15:34:14:978 [http-nio-8080-exec-3] INFO  l.i.c.controller.CropController - Crop updated successfully: Rice

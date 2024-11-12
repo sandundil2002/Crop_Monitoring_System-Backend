@@ -2,6 +2,8 @@ package lk.ijse.crop_monitoring_systembackend.service.impl;
 
 import lk.ijse.crop_monitoring_systembackend.dao.CropDAO;
 import lk.ijse.crop_monitoring_systembackend.dto.CropDTO;
+import lk.ijse.crop_monitoring_systembackend.entity.CropEntity;
+import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
 import lk.ijse.crop_monitoring_systembackend.service.CropService;
 import lk.ijse.crop_monitoring_systembackend.util.MappingUtil;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -29,7 +32,17 @@ public class CropServiceIMPL implements CropService {
 
     @Override
     public void updateCrop(String id, CropDTO crop) {
-
+        Optional<CropEntity> tmpCropEntity = cropDAO.findById(id);
+        if (tmpCropEntity.isPresent()) {
+            CropEntity cropEntity = mappingUtil.cropConvertToEntity(crop);
+            tmpCropEntity.get().setCommonName(cropEntity.getCommonName());
+            tmpCropEntity.get().setScientificName(cropEntity.getScientificName());
+            tmpCropEntity.get().setCategory(cropEntity.getCategory());
+            tmpCropEntity.get().setSeason(cropEntity.getSeason());
+            tmpCropEntity.get().setCropImg(cropEntity.getCropImg());
+        } else {
+            throw new NotFoundException("Crop not found with id: " + id);
+        }
     }
 
     @Override
