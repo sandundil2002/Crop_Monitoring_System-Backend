@@ -1,5 +1,6 @@
 package lk.ijse.crop_monitoring_systembackend.controller;
 
+import jakarta.validation.Valid;
 import lk.ijse.crop_monitoring_systembackend.customResponse.ErrorResponse;
 import lk.ijse.crop_monitoring_systembackend.customResponse.Response;
 import lk.ijse.crop_monitoring_systembackend.dto.FieldDTO;
@@ -30,6 +31,7 @@ public class FieldController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> saveField(
+            @Valid
             @RequestPart("fieldName") String fieldName,
             @RequestPart("location") String fieldLocation,
             @RequestPart("size") String fieldSize,
@@ -63,6 +65,7 @@ public class FieldController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> updateField(
+            @Valid
             @PathVariable("id") String id,
             @RequestPart("fieldName") String fieldName,
             @RequestPart("location") String fieldLocation,

@@ -1,13 +1,7 @@
 package lk.ijse.crop_monitoring_systembackend.util;
 
-import lk.ijse.crop_monitoring_systembackend.dto.CropDTO;
-import lk.ijse.crop_monitoring_systembackend.dto.FieldDTO;
-import lk.ijse.crop_monitoring_systembackend.dto.StaffDTO;
-import lk.ijse.crop_monitoring_systembackend.dto.UserDTO;
-import lk.ijse.crop_monitoring_systembackend.entity.CropEntity;
-import lk.ijse.crop_monitoring_systembackend.entity.FieldEntity;
-import lk.ijse.crop_monitoring_systembackend.entity.StaffEntity;
-import lk.ijse.crop_monitoring_systembackend.entity.UserEntity;
+import lk.ijse.crop_monitoring_systembackend.dto.*;
+import lk.ijse.crop_monitoring_systembackend.entity.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -65,6 +59,19 @@ public class MappingUtil {
 
     public List<CropDTO> cropConvertToDTOList(List<CropEntity> cropEntities) {
         return cropEntities.stream().map(this::cropConvertToDTO).toList();
+    }
+
+    //Maters of EquipmentEntity & EquipmentDTO
+    public EquipmentDTO equipmentConvertToDTO(EquipmentEntity equipmentEntity) {
+        return modelMapper.map(equipmentEntity, EquipmentDTO.class);
+    }
+
+    public EquipmentEntity equipmentConvertToEntity(EquipmentDTO equipmentDTO) {
+        return modelMapper.map(equipmentDTO, EquipmentEntity.class);
+    }
+
+    public List<EquipmentDTO> equipmentConvertToDTOList(List<EquipmentEntity> equipmentEntities) {
+        return equipmentEntities.stream().map(this::equipmentConvertToDTO).toList();
     }
 
 }
