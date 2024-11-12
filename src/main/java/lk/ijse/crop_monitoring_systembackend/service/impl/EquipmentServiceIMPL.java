@@ -60,7 +60,13 @@ public class EquipmentServiceIMPL implements EquipmentService {
 
     @Override
     public boolean deleteEquipment(String id) {
-        return false;
+        if (equipmentDAO.existsById(id)) {
+            equipmentDAO.deleteById(id);
+            System.out.println("Equipment deleted successfully: " + id);
+            return true;
+        } else {
+            throw new NotFoundException("Equipment not found with id: " + id);
+        }
     }
 
     @Override
