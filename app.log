@@ -91,3 +91,7 @@
 15:47:04:653 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
 15:47:11:364 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 7.381 seconds (process running for 8.102)
 15:47:39:857 [http-nio-8080-exec-1] INFO  l.i.c.controller.CropController - Crop deleted successfully with id: C002
+19:37:32:812 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 19100 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+19:37:32:830 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+19:38:02:500 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 31.821 seconds (process running for 35.075)
+19:40:45:522 [http-nio-8080-exec-2] INFO  l.i.c.controller.EquipmentController - Equipment saved successfully: EquipmentDTO(equipmentId=E001, category=Shovel, type=Mechanical, status=Available, staff=null, fields=null)
