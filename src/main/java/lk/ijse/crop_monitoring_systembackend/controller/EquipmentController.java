@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
@@ -80,6 +81,18 @@ public class EquipmentController {
             }
         } else {
             return new ErrorResponse("Invalid equipment id", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<EquipmentDTO> getAllEquipments() {
+        try {
+            List<EquipmentDTO> allEquipments = equipmentService.getAllEquipments();
+            logger.info("All equipments found successfully: " + allEquipments);
+            return allEquipments;
+        } catch (Exception e) {
+            logger.severe("Failed to find all equipments");
+            return null;
         }
     }
 }
