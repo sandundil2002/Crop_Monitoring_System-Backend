@@ -52,3 +52,16 @@
 10:36:37:219 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
 10:36:43:960 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 7.498 seconds (process running for 8.601)
 10:37:29:787 [http-nio-8080-exec-1] INFO  l.i.c.controller.FieldController - Field deleted successfully: F002
+10:42:31:937 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 24568 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+10:42:31:941 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+10:42:39:703 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 8.392 seconds (process running for 9.379)
+10:43:24:007 [http-nio-8080-exec-4] INFO  l.i.c.controller.FieldController - Field saved successfully: Wheat
+10:44:11:177 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 30964 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+10:44:11:209 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+10:44:19:474 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 8.873 seconds (process running for 9.77)
+10:44:51:821 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 7468 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+10:44:51:824 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+10:44:56:618 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 5.156 seconds (process running for 5.96)
+10:45:22:305 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 27176 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+10:45:22:307 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+10:45:26:873 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 4.908 seconds (process running for 5.87)
