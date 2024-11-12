@@ -1,7 +1,10 @@
 package lk.ijse.crop_monitoring_systembackend.controller;
 
+import lk.ijse.crop_monitoring_systembackend.customResponse.ErrorResponse;
+import lk.ijse.crop_monitoring_systembackend.customResponse.Response;
 import lk.ijse.crop_monitoring_systembackend.dto.FieldDTO;
 import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedException;
+import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
 import lk.ijse.crop_monitoring_systembackend.service.FieldService;
 import lk.ijse.crop_monitoring_systembackend.util.AppUtil;
 import lombok.RequiredArgsConstructor;
@@ -87,6 +90,24 @@ public class FieldController {
             e.printStackTrace();
             logger.severe("Failed to update field: " + fieldName);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response findField(@PathVariable("id") String id) {
+        if (id != null) {
+            try {
+                FieldDTO fieldDTO = fieldService.searchField(id);
+                logger.info("Field found with id: " + id);
+                return fieldDTO;
+            } catch (NotFoundException e) {
+                return new ErrorResponse("Field not found with id: " + id, HttpStatus.NOT_FOUND);
+            } catch (Exception e) {
+                logger.severe("Failed to find field with id: " + id);
+                return new ErrorResponse("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ErrorResponse("Invalid field id", HttpStatus.BAD_REQUEST);
         }
     }
 }

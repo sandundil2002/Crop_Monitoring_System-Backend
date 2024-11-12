@@ -39,3 +39,7 @@
 10:17:57:174 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
 10:18:06:149 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 9.588 seconds (process running for 11.45)
 10:20:38:041 [http-nio-8080-exec-1] INFO  l.i.c.controller.FieldController - Field updated successfully: Beans
+10:26:28:925 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 12444 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+10:26:28:929 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+10:26:37:930 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 9.505 seconds (process running for 10.774)
+10:26:58:044 [http-nio-8080-exec-2] INFO  l.i.c.controller.FieldController - Field found with id: F001

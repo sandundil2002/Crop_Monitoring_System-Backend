@@ -47,7 +47,11 @@ public class FieldServiceIMPL implements FieldService {
 
     @Override
     public FieldDTO searchField(String id) {
-        return null;
+        if (fieldDAO.existsById(id)) {
+            return mappingUtil.fieldConvertToDTO(fieldDAO.getReferenceById(id));
+        } else {
+            throw new NotFoundException("Field not found with id: " + id);
+        }
     }
 
     @Override
