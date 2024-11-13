@@ -648,3 +648,11 @@ Consider defining a bean of type 'org.modelmapper.ModelMapper' in your configura
 21:31:13:958 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
 21:31:26:220 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 13.114 seconds (process running for 14.6)
 21:32:05:812 [http-nio-8080-exec-2] INFO  l.i.c.controller.EquipmentController - Equipment deleted successfully: E002
+21:34:20:510 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 22808 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+21:34:20:516 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+21:34:29:505 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 9.595 seconds (process running for 11.18)
+21:38:23:413 [http-nio-8080-exec-2] INFO  l.i.c.controller.VehicleController - Vehicle saved successfully: VehicleDTO(vehicleId=V001, category=Car, numberPlate=ABC-5625, fuelType=Petrol, status=Available, remarks=Red)
+21:44:18:622 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 9800 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+21:44:18:630 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+21:44:28:011 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 10.234 seconds (process running for 11.303)
+21:45:18:312 [http-nio-8080-exec-2] INFO  l.i.c.controller.VehicleController - Vehicle updated successfully: VehicleDTO(vehicleId=null, category=Van, numberPlate=ABS-5625, fuelType=Petrol, status=Available, remarks=White)

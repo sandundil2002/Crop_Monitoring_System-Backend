@@ -2,6 +2,8 @@ package lk.ijse.crop_monitoring_systembackend.service.impl;
 
 import lk.ijse.crop_monitoring_systembackend.dao.VehicleDAO;
 import lk.ijse.crop_monitoring_systembackend.dto.VehicleDTO;
+import lk.ijse.crop_monitoring_systembackend.entity.VehicleEntity;
+import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
 import lk.ijse.crop_monitoring_systembackend.service.VehicleService;
 import lk.ijse.crop_monitoring_systembackend.util.MappingUtil;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -30,7 +33,18 @@ public class VehicleServiceIMPL implements VehicleService {
 
     @Override
     public void updateVehicle(String id, VehicleDTO vehicle) {
-
+        Optional<VehicleEntity> tmpVehicle = vehicleDAO.findById(id);
+        if (tmpVehicle.isPresent()) {
+            VehicleEntity vehicleEntity = mappingUtil.vehicleConvertToEntity(vehicle);
+            tmpVehicle.get().setCategory(vehicleEntity.getCategory());
+            tmpVehicle.get().setNumberPlate(vehicleEntity.getNumberPlate());
+            tmpVehicle.get().setFuelType(vehicleEntity.getFuelType());
+            tmpVehicle.get().setStatus(vehicleEntity.getStatus());
+            tmpVehicle.get().setRemarks(vehicleEntity.getRemarks());
+            System.out.println("Vehicle updated successfully: " + tmpVehicle.get());
+        } else {
+            throw new NotFoundException("Vehicle not found with id: " + id);
+        }
     }
 
     @Override
