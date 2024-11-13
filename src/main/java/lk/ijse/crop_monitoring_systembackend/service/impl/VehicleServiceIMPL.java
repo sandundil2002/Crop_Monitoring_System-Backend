@@ -23,7 +23,9 @@ public class VehicleServiceIMPL implements VehicleService {
 
     @Override
     public void saveVehicle(VehicleDTO vehicle) {
-
+        vehicle.setVehicleId(generateVehicleID());
+        vehicleDAO.save(mappingUtil.vehicleConvertToEntity(vehicle));
+        System.out.println("Vehicle saved successfully: " + vehicle);
     }
 
     @Override
@@ -44,5 +46,21 @@ public class VehicleServiceIMPL implements VehicleService {
     @Override
     public List<VehicleDTO> getAllVehicles() {
         return List.of();
+    }
+
+    private String generateVehicleID() {
+        if (vehicleDAO.count() == 0) {
+            return "V001";
+        } else {
+            String id = vehicleDAO.findAll().get(vehicleDAO.findAll().size() - 1).getVehicleId();
+            int i = Integer.parseInt(id.replace("V", "")) + 1;
+            if (i < 10) {
+                return "V00" + i;
+            } else if (i < 100) {
+                return "V0" + i;
+            } else {
+                return "V" + i;
+            }
+        }
     }
 }
