@@ -82,4 +82,16 @@ public class VehicleController {
             return new ErrorResponse("Invalid vehicle id", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<VehicleDTO> getAllVehicles() {
+        try {
+            List<VehicleDTO> allVehicles = vehicleService.getAllVehicles();
+            logger.info("All vehicles found successfully");
+            return allVehicles;
+        } catch (Exception e) {
+            logger.severe("Failed to find all vehicles");
+            return null;
+        }
+    }
 }

@@ -661,3 +661,7 @@ Consider defining a bean of type 'org.modelmapper.ModelMapper' in your configura
 21:48:49:577 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 6.669 seconds (process running for 7.403)
 21:49:07:830 [http-nio-8080-exec-3] INFO  l.i.c.controller.VehicleController - Vehicle found successfully: VehicleDTO(vehicleId=V001, category=Van, numberPlate=ABS-5625, fuelType=Petrol, status=Available, remarks=White)
 21:49:38:939 [http-nio-8080-exec-4] INFO  l.i.c.controller.VehicleController - Vehicle saved successfully: VehicleDTO(vehicleId=V002, category=Car, numberPlate=ABC-5625, fuelType=Petrol, status=Available, remarks=Red)
+21:50:52:201 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 24992 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+21:50:52:227 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+21:50:59:495 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 7.974 seconds (process running for 8.747)
+21:51:19:027 [http-nio-8080-exec-2] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
