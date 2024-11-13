@@ -1,6 +1,8 @@
 package lk.ijse.crop_monitoring_systembackend.controller;
 
 import jakarta.validation.Valid;
+import lk.ijse.crop_monitoring_systembackend.customResponse.ErrorResponse;
+import lk.ijse.crop_monitoring_systembackend.customResponse.Response;
 import lk.ijse.crop_monitoring_systembackend.dto.VehicleDTO;
 import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedException;
 import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
@@ -12,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
@@ -59,6 +62,24 @@ public class VehicleController {
             }
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response searchVehicle(@PathVariable("id") String id) {
+        if (id != null) {
+            try {
+                VehicleDTO vehicleDTO = vehicleService.searchVehicle(id);
+                logger.info("Vehicle found successfully: " + vehicleDTO);
+                return vehicleDTO;
+            } catch (NotFoundException e) {
+                return new ErrorResponse("Vehicle not found with id: " + id, HttpStatus.NOT_FOUND);
+            } catch (Exception e) {
+                logger.severe("Failed to find vehicle: " + id);
+                return new ErrorResponse("Failed to find vehicle with id: " + id, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ErrorResponse("Invalid vehicle id", HttpStatus.BAD_REQUEST);
         }
     }
 }

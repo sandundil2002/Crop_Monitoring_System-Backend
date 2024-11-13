@@ -49,7 +49,11 @@ public class VehicleServiceIMPL implements VehicleService {
 
     @Override
     public VehicleDTO searchVehicle(String id) {
-        return null;
+        if (vehicleDAO.existsById(id)) {
+            return mappingUtil.vehicleConvertToDTO(vehicleDAO.getReferenceById(id));
+        } else {
+            throw new NotFoundException("Vehicle not found with id: " + id);
+        }
     }
 
     @Override

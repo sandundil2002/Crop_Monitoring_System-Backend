@@ -656,3 +656,8 @@ Consider defining a bean of type 'org.modelmapper.ModelMapper' in your configura
 21:44:18:630 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
 21:44:28:011 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 10.234 seconds (process running for 11.303)
 21:45:18:312 [http-nio-8080-exec-2] INFO  l.i.c.controller.VehicleController - Vehicle updated successfully: VehicleDTO(vehicleId=null, category=Van, numberPlate=ABS-5625, fuelType=Petrol, status=Available, remarks=White)
+21:48:43:259 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 19600 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+21:48:43:261 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+21:48:49:577 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 6.669 seconds (process running for 7.403)
+21:49:07:830 [http-nio-8080-exec-3] INFO  l.i.c.controller.VehicleController - Vehicle found successfully: VehicleDTO(vehicleId=V001, category=Van, numberPlate=ABS-5625, fuelType=Petrol, status=Available, remarks=White)
+21:49:38:939 [http-nio-8080-exec-4] INFO  l.i.c.controller.VehicleController - Vehicle saved successfully: VehicleDTO(vehicleId=V002, category=Car, numberPlate=ABC-5625, fuelType=Petrol, status=Available, remarks=Red)
