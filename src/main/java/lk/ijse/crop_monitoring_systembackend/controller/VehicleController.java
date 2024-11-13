@@ -94,4 +94,26 @@ public class VehicleController {
             return null;
         }
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deleteVehicle(@PathVariable("id") String id) {
+        if (id != null) {
+            try {
+                boolean deleted = vehicleService.deleteVehicle(id);
+                if (deleted) {
+                    logger.info("Vehicle deleted successfully: " + id);
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
+            } catch (NotFoundException e) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } catch (Exception e) {
+                logger.severe("Failed to delete vehicle: " + id);
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }
