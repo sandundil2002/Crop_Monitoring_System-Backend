@@ -61,12 +61,19 @@ public class LogServiceIMPL implements LogService {
 
     @Override
     public boolean deleteLog(String id) {
-        return false;
+        if (logDAO.existsById(id)) {
+            logDAO.deleteById(id);
+            System.out.println("Log deleted successfully with id: " + id);
+            return true;
+        } else {
+            System.out.println("Log not found with id: " + id);
+            throw new NotFoundException("Log not found with id: " + id);
+        }
     }
 
     @Override
     public List<LogDTO> getAllLogs() {
-        return List.of();
+        return mappingUtil.logConvertToDTOList(logDAO.findAll());
     }
 
     private String generateLogID() {

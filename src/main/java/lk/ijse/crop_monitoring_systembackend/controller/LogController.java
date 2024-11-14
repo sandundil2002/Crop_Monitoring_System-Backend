@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
@@ -104,6 +105,40 @@ public class LogController {
             }
         } else {
             return new ErrorResponse("Log id is required", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<LogDTO> getAllLogs() {
+        try {
+            List<LogDTO> allLogs = logService.getAllLogs();
+            logger.info("All logs found successfully");
+            return allLogs;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.severe("Failed to find all logs: " + e.getMessage());
+            return null;
+        }
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deleteLog(@PathVariable String id) {
+        if (id != null) {
+            try {
+                boolean deleted = logService.deleteLog(id);
+                if (deleted) {
+                    logger.info("Log deleted successfully: " + id);
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.severe("Failed to delete log: " + id + " - " + e.getMessage());
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }
