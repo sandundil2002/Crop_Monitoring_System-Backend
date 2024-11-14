@@ -87,4 +87,16 @@ public class MappingUtil {
         return vehicleEntities.stream().map(this::vehicleConvertToDTO).toList();
     }
 
+    //Maters of LogEntity & LogDTO
+    public LogDTO logConvertToDTO(LogEntity logEntity) {
+        return modelMapper.map(logEntity, LogDTO.class);
+    }
+
+    public LogEntity logConvertToEntity(LogDTO logDTO) {
+        return modelMapper.map(logDTO, LogEntity.class);
+    }
+
+    public List<LogDTO> logConvertToDTOList(List<LogEntity> logEntities) {
+        return logEntities.stream().map(this::logConvertToDTO).toList();
+    }
 }
