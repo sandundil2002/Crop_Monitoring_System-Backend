@@ -21,12 +21,13 @@ public class LogEntity implements Serializable {
     private LocalDate date;
     private String details;
     private String temperature;
+    @Column(columnDefinition = "LONGTEXT")
     private String observedImg;
     @ManyToOne
-    @JoinColumn(name = "field_id")
+    @JoinColumn(name = "field_id", nullable = false)
     private FieldEntity field;
     @ManyToOne
-    @JoinColumn(name = "crop_id")
+    @JoinColumn(name = "crop_id", nullable = false)
     private CropEntity crop;
     @OneToMany(mappedBy = "logEntity", cascade = CascadeType.ALL)
     private List<StaffLogEntity> staffLog = new ArrayList<>();

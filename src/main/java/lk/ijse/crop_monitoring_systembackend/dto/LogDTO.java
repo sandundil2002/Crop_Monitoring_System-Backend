@@ -16,7 +16,6 @@ import java.util.List;
 @Data
 public class LogDTO implements Serializable, Response {
     private String logId;
-    @NotNull(message = "Date cannot be null")
     private LocalDate date;
     @NotBlank(message = "Details cannot be blank")
     @Size(max = 255, message = "Details must be at most 255 characters")
@@ -24,12 +23,11 @@ public class LogDTO implements Serializable, Response {
     @NotBlank(message = "Temperature cannot be blank")
     @Pattern(regexp = "^-?\\d+(\\.\\d+)?°?[CF]$", message = "Temperature must be a valid format, e.g., 36.5°C or 98°F")
     private String temperature;
-    @Size(max = 65535, message = "Observed image data exceeds maximum size")
+    @Size(max = 10485760, message = "Image size exceeds maximum allowed length")
     private String observedImg;
     @NotEmpty(message = "Fields list cannot be empty")
-    private List<@Valid FieldDTO> fields;
+    private String fieldId;
     @NotEmpty(message = "Crops list cannot be empty")
-    private List<@Valid CropDTO> crops;
-    @NotEmpty(message = "Staff list cannot be empty")
-    private List<@Valid StaffDTO> staff;
+    private String cropId;
+    private List<String> staff;
 }
