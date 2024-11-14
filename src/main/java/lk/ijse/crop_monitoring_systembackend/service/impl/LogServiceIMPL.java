@@ -51,7 +51,12 @@ public class LogServiceIMPL implements LogService {
 
     @Override
     public LogDTO searchLog(String id) {
-        return null;
+        if (logDAO.existsById(id)) {
+            return mappingUtil.logConvertToDTO(logDAO.getReferenceById(id));
+        } else {
+            System.out.println("Log not found with id: " + id);
+            throw new NotFoundException("Log not found with id: " + id);
+        }
     }
 
     @Override

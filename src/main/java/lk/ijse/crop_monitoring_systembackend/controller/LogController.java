@@ -1,6 +1,8 @@
 package lk.ijse.crop_monitoring_systembackend.controller;
 
 import jakarta.validation.Valid;
+import lk.ijse.crop_monitoring_systembackend.customResponse.ErrorResponse;
+import lk.ijse.crop_monitoring_systembackend.customResponse.Response;
 import lk.ijse.crop_monitoring_systembackend.dto.LogDTO;
 import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedException;
 import lk.ijse.crop_monitoring_systembackend.service.LogService;
@@ -85,6 +87,23 @@ public class LogController {
             e.printStackTrace();
             logger.severe("Failed to update log: " + details + " - " + e.getMessage());
             return new ResponseEntity<>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response findLog(@PathVariable String id) {
+        if (id != null) {
+            try {
+                LogDTO logDTO = logService.searchLog(id);
+                logger.info("Log found successfully: " + logDTO);
+                return logDTO;
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.severe("Failed to find log: " + id + " - " + e.getMessage());
+                return new ErrorResponse("Failed to find log", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ErrorResponse("Log id is required", HttpStatus.BAD_REQUEST);
         }
     }
 }
