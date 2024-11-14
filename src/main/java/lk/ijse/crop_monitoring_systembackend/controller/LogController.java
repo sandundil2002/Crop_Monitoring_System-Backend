@@ -1,11 +1,7 @@
 package lk.ijse.crop_monitoring_systembackend.controller;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;
-import lk.ijse.crop_monitoring_systembackend.dto.CropDTO;
-import lk.ijse.crop_monitoring_systembackend.dto.FieldDTO;
 import lk.ijse.crop_monitoring_systembackend.dto.LogDTO;
-import lk.ijse.crop_monitoring_systembackend.dto.StaffDTO;
 import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedException;
 import lk.ijse.crop_monitoring_systembackend.service.LogService;
 import lk.ijse.crop_monitoring_systembackend.util.AppUtil;
@@ -17,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
@@ -56,6 +51,39 @@ public class LogController {
         } catch (Exception e) {
             e.printStackTrace();
             logger.severe("Failed to save log: " + details + " - " + e.getMessage());
+            return new ResponseEntity<>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> updateLog(
+            @Valid
+            @PathVariable String id,
+            @RequestPart("details") String details,
+            @RequestPart("temperature") String temperature,
+            @RequestPart("observedImg") MultipartFile observedImg,
+            @RequestPart("fieldId") String fieldId,
+            @RequestPart("cropId") String cropId) {
+        try {
+            byte[] img = observedImg.getBytes();
+            String base64Img = AppUtil.toBase64Pic(img);
+            LogDTO logDTO = new LogDTO();
+            logDTO.setDetails(details);
+            logDTO.setTemperature(temperature);
+            logDTO.setObservedImg(base64Img);
+            logDTO.setFieldId(fieldId);
+            logDTO.setCropId(cropId);
+            logService.updateLog(id, logDTO);
+            logger.info("Log updated successfully: " + logDTO);
+            return new ResponseEntity<>("Log updated successfully", HttpStatus.NO_CONTENT);
+        } catch (DataPersistFailedException e) {
+            e.printStackTrace();
+            logger.severe("Failed to update log: " + details + " - " + e.getMessage());
+            return new ResponseEntity<>("Failed to update log", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.severe("Failed to update log: " + details + " - " + e.getMessage());
             return new ResponseEntity<>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

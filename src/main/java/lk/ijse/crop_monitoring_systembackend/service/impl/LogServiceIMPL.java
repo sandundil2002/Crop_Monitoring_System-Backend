@@ -2,6 +2,8 @@ package lk.ijse.crop_monitoring_systembackend.service.impl;
 
 import lk.ijse.crop_monitoring_systembackend.dao.LogDAO;
 import lk.ijse.crop_monitoring_systembackend.dto.LogDTO;
+import lk.ijse.crop_monitoring_systembackend.entity.LogEntity;
+import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
 import lk.ijse.crop_monitoring_systembackend.service.LogService;
 import lk.ijse.crop_monitoring_systembackend.util.MappingUtil;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -32,7 +35,18 @@ public class LogServiceIMPL implements LogService {
 
     @Override
     public void updateLog(String id, LogDTO log) {
-
+        Optional<LogEntity> tmpLogEntity = logDAO.findById(id);
+        if (tmpLogEntity.isPresent()) {
+            LogEntity logEntity = mappingUtil.logConvertToEntity(log);
+            tmpLogEntity.get().setDetails(logEntity.getDetails());
+            tmpLogEntity.get().setTemperature(logEntity.getTemperature());
+            tmpLogEntity.get().setObservedImg(logEntity.getObservedImg());
+            tmpLogEntity.get().setField(logEntity.getField());
+            tmpLogEntity.get().setCrop(logEntity.getCrop());
+        } else {
+            System.out.println("Log not found with id: " + id);
+            throw new NotFoundException("Log not found with id: " + id);
+        }
     }
 
     @Override
