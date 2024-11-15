@@ -99,4 +99,17 @@ public class MappingUtil {
     public List<LogDTO> logConvertToDTOList(List<LogEntity> logEntities) {
         return logEntities.stream().map(this::logConvertToDTO).toList();
     }
+
+    //Maters of FieldCropEntity & FieldCropDTO
+    public FieldCropDTO fieldCropConvertToDTO(FieldCropEntity fieldCropEntity) {
+        return modelMapper.map(fieldCropEntity, FieldCropDTO.class);
+    }
+
+    public FieldCropEntity fieldCropConvertToEntity(FieldCropDTO fieldCropDTO) {
+        return modelMapper.map(fieldCropDTO, FieldCropEntity.class);
+    }
+
+    public List<FieldCropDTO> fieldCropConvertToDTOList(List<FieldCropEntity> fieldCropEntities) {
+        return fieldCropEntities.stream().map(this::fieldCropConvertToDTO).toList();
+    }
 }

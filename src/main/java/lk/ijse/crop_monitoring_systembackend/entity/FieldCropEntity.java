@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,4 +22,5 @@ public class FieldCropEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "crop_id")
     private CropEntity crop;
+    private LocalDate assignedDate;
 }
