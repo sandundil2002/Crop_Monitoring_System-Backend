@@ -26,4 +26,5 @@ public class CropDTO implements Serializable, Response {
     private String season;
     @Size(max = 10485760, message = "Image size exceeds maximum allowed length")
     private String cropImg;
+    private String fields;
 }

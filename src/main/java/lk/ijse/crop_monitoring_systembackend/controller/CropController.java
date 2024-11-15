@@ -1,9 +1,12 @@
 package lk.ijse.crop_monitoring_systembackend.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import lk.ijse.crop_monitoring_systembackend.customResponse.ErrorResponse;
 import lk.ijse.crop_monitoring_systembackend.customResponse.Response;
 import lk.ijse.crop_monitoring_systembackend.dto.CropDTO;
+import lk.ijse.crop_monitoring_systembackend.dto.FieldCropDTO;
 import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedException;
 import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
 import lk.ijse.crop_monitoring_systembackend.service.CropService;
@@ -16,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -30,24 +35,26 @@ public class CropController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> saveCrop(
-            @Valid
             @RequestPart("commonName") String commonName,
             @RequestPart("scientificName") String scientificName,
             @RequestPart("category") String category,
             @RequestPart("season") String season,
-            @RequestPart("cropImg") MultipartFile cropImg) {
+            @RequestPart("cropImg") MultipartFile cropImg,
+            @RequestPart("fields") String fields) {
         try {
             byte[] img = cropImg.getBytes();
             String base64Img = AppUtil.toBase64Pic(img);
+
             CropDTO cropDTO = new CropDTO();
             cropDTO.setCommonName(commonName);
             cropDTO.setScientificName(scientificName);
             cropDTO.setCategory(category);
             cropDTO.setSeason(season);
             cropDTO.setCropImg(base64Img);
+            cropDTO.setFields(fields);
             cropService.saveCrop(cropDTO);
             logger.info("Crop saved successfully: " + commonName);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>("Crop saved successfully", HttpStatus.CREATED);
         } catch (DataPersistFailedException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

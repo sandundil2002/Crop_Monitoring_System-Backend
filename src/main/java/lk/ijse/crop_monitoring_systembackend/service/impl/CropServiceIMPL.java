@@ -1,7 +1,9 @@
 package lk.ijse.crop_monitoring_systembackend.service.impl;
 
 import lk.ijse.crop_monitoring_systembackend.dao.CropDAO;
+import lk.ijse.crop_monitoring_systembackend.dao.FieldCropDAO;
 import lk.ijse.crop_monitoring_systembackend.dto.CropDTO;
+import lk.ijse.crop_monitoring_systembackend.dto.FieldCropDTO;
 import lk.ijse.crop_monitoring_systembackend.entity.CropEntity;
 import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
 import lk.ijse.crop_monitoring_systembackend.service.CropService;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,12 +25,21 @@ public class CropServiceIMPL implements CropService {
     private CropDAO cropDAO;
 
     @Autowired
+    private FieldCropDAO fieldCropDAO;
+
+    @Autowired
     private MappingUtil mappingUtil;
 
     @Override
-    public void saveCrop(CropDTO crop) {
-        crop.setCropId(generateCropID());
-        cropDAO.save(mappingUtil.cropConvertToEntity(crop));
+    @Transactional
+    public void saveCrop(CropDTO cropDTO) {
+        String cropId = generateCropID();
+        cropDTO.setCropId(cropId);
+        CropEntity cropEntity = mappingUtil.cropConvertToEntity(cropDTO);
+        cropDAO.save(cropEntity);
+        FieldCropDTO fieldCropDTO = new FieldCropDTO(generateFieldCropID(),cropId, cropDTO.getFields(), LocalDate.now());
+        fieldCropDAO.save(mappingUtil.fieldCropConvertToEntity(fieldCropDTO));
+        System.out.println("Crop saved successfully: " + cropDTO);
     }
 
     @Override
@@ -82,6 +94,22 @@ public class CropServiceIMPL implements CropService {
                 return "C0" + newId;
             } else {
                 return "C" + newId;
+            }
+        }
+    }
+
+    private String generateFieldCropID() {
+        if (fieldCropDAO.count() == 0) {
+            return "FC001";
+        } else {
+            String lastId = fieldCropDAO.findAll().get(fieldCropDAO.findAll().size() - 1).getFieldCropId();
+            int newId = Integer.parseInt(lastId.substring(1)) + 1;
+            if (newId < 10) {
+                return "FC00" + newId;
+            } else if (newId < 100) {
+                return "FC0" + newId;
+            } else {
+                return "FC" + newId;
             }
         }
     }
