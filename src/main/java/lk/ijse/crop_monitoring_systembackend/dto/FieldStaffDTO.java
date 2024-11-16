@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 public class FieldStaffDTO implements Serializable {
-    private int fieldStaffId;
+    private String fieldStaffId;
     @NotEmpty(message = "Field ID cannot be empty")
     private String fieldId;
     @NotEmpty(message = "Staff ID cannot be empty")

@@ -51,7 +51,14 @@ public class MappingUtil {
     }
 
     public FieldEntity fieldConvertToEntity(FieldDTO fieldDTO) {
-        return modelMapper.map(fieldDTO, FieldEntity.class);
+        FieldEntity entity = new FieldEntity();
+        entity.setFieldId(fieldDTO.getFieldId());
+        entity.setFieldName(fieldDTO.getFieldName());
+        entity.setLocation(fieldDTO.getLocation());
+        entity.setSize(fieldDTO.getSize());
+        entity.setFieldImg1(fieldDTO.getFieldImg1());
+        entity.setFieldImg2(fieldDTO.getFieldImg2());
+        return entity;
     }
 
     public List<FieldDTO> fieldConvertToDTOList(List<FieldEntity> fieldEntities) {
@@ -138,11 +145,7 @@ public class MappingUtil {
     }
 
     public FieldStaffEntity fieldStaffConvertToEntity(FieldStaffDTO fieldStaffDTO) {
-        if (fieldStaffDTO == null) {
-            return null;
-        } else {
-            return modelMapper.map(fieldStaffDTO, FieldStaffEntity.class);
-        }
+        return modelMapper.map(fieldStaffDTO, FieldStaffEntity.class);
     }
 
     public List<FieldStaffDTO> fieldStaffConvertToDTOList(List<FieldStaffEntity> fieldStaffEntities) {

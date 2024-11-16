@@ -38,8 +38,10 @@ public class FieldServiceIMPL implements FieldService {
         String fieldId = generateFieldID();
         field.setFieldId(fieldId);
         fieldDAO.save(mappingUtil.fieldConvertToEntity(field));
+
         for (String staffId : field.getStaffs()) {
             FieldStaffDTO fieldStaffDTO = new FieldStaffDTO();
+            fieldStaffDTO.setFieldStaffId(generateFieldStaffID());
             fieldStaffDTO.setFieldId(fieldId);
             fieldStaffDTO.setStaffId(staffId);
             fieldStaffDTO.setAssignedDate(LocalDate.now());
@@ -51,29 +53,30 @@ public class FieldServiceIMPL implements FieldService {
 
     @Override
     public void updateField(String id, FieldDTO field) {
-        Optional<FieldEntity> tmpFieldEntity = fieldDAO.findById(id);
-        if (tmpFieldEntity.isPresent()) {
-            FieldEntity fieldEntity = mappingUtil.fieldConvertToEntity(field);
-            tmpFieldEntity.get().setFieldName(fieldEntity.getFieldName());
-            tmpFieldEntity.get().setLocation(fieldEntity.getLocation());
-            tmpFieldEntity.get().setSize(fieldEntity.getSize());
-            tmpFieldEntity.get().setFieldImg1(fieldEntity.getFieldImg1());
-            tmpFieldEntity.get().setFieldImg2(fieldEntity.getFieldImg2());
-            fieldDAO.save(tmpFieldEntity.get());
-            fieldStaffDAO.deleteByField_FieldId(id);
+        FieldEntity existingFieldEntity = fieldDAO.findById(id)
+                .orElseThrow(() -> new NotFoundException("Field not found with id: " + id));
+        existingFieldEntity.setFieldName(field.getFieldName());
+        existingFieldEntity.setLocation(field.getLocation());
+        existingFieldEntity.setSize(field.getSize());
+        existingFieldEntity.setFieldImg1(field.getFieldImg1());
+        existingFieldEntity.setFieldImg2(field.getFieldImg2());
 
-            for (String staffId : field.getStaffs()) {
-                FieldStaffDTO fieldStaffDTO = new FieldStaffDTO();
-                fieldStaffDTO.setFieldId(id);
-                fieldStaffDTO.setStaffId(staffId);
-                fieldStaffDTO.setAssignedDate(LocalDate.now());
-                FieldStaffEntity fieldStaffEntity = mappingUtil.fieldStaffConvertToEntity(fieldStaffDTO);
-                fieldStaffDAO.save(fieldStaffEntity);
-            }
+        fieldDAO.save(existingFieldEntity);
+        updateFieldStaffAssignments(id, field.getStaffs());
+        System.out.println("Field updated successfully: " + field);
+    }
 
-            System.out.println("Field updated successfully: " + field);
-        } else {
-            throw new NotFoundException("Field not found with id: " + id);
+    private void updateFieldStaffAssignments(String fieldId, List<String> staffIds) {
+        fieldStaffDAO.deleteByField_FieldId(fieldId);
+
+        for (String staffId : staffIds) {
+            FieldStaffDTO fieldStaffDTO = new FieldStaffDTO();
+            fieldStaffDTO.setFieldStaffId(generateFieldStaffID());
+            fieldStaffDTO.setFieldId(fieldId);
+            fieldStaffDTO.setStaffId(staffId);
+            fieldStaffDTO.setAssignedDate(LocalDate.now());
+            FieldStaffEntity fieldStaffEntity = mappingUtil.fieldStaffConvertToEntity(fieldStaffDTO);
+            fieldStaffDAO.save(fieldStaffEntity);
         }
     }
 
@@ -123,6 +126,22 @@ public class FieldServiceIMPL implements FieldService {
                 return "F0" + newId;
             } else {
                 return "F" + newId;
+            }
+        }
+    }
+
+    private String generateFieldStaffID() {
+        if (fieldStaffDAO.count() == 0) {
+            return "FS001";
+        } else {
+            String lastId = fieldStaffDAO.findAll().get(fieldStaffDAO.findAll().size() - 1).getFieldStaffId();
+            int newId = Integer.parseInt(lastId.substring(2)) + 1;
+            if (newId < 10) {
+                return "FS00" + newId;
+            } else if (newId < 100) {
+                return "FS0" + newId;
+            } else {
+                return "FS" + newId;
             }
         }
     }

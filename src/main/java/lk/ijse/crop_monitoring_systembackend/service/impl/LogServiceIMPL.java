@@ -32,13 +32,13 @@ public class LogServiceIMPL implements LogService {
     private FieldStaffDAO fieldStaffDAO;
 
     @Autowired
-    private MappingUtil mappingUtil;
-
-    @Autowired
     private StaffLogDAO staffLogDAO;
 
     @Autowired
     private StaffDAO staffDAO;
+
+    @Autowired
+    private MappingUtil mappingUtil;
 
     @Override
     public void saveLog(LogDTO log) {
