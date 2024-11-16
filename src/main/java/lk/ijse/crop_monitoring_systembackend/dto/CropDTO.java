@@ -1,6 +1,7 @@
 package lk.ijse.crop_monitoring_systembackend.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lk.ijse.crop_monitoring_systembackend.customResponse.Response;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,5 +28,6 @@ public class CropDTO implements Serializable, Response {
     private String season;
     @Size(max = 10485760, message = "Image size exceeds maximum allowed length")
     private String cropImg;
-    private String fields;
+    @NotEmpty(message = "Fields cannot be empty")
+    private List<String> fields;
 }

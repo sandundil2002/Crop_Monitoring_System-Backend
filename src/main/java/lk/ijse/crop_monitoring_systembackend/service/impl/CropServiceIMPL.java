@@ -37,8 +37,10 @@ public class CropServiceIMPL implements CropService {
         cropDTO.setCropId(cropId);
         CropEntity cropEntity = mappingUtil.cropConvertToEntity(cropDTO);
         cropDAO.save(cropEntity);
-        FieldCropDTO fieldCropDTO = new FieldCropDTO(generateFieldCropID(),cropId, cropDTO.getFields(), LocalDate.now());
-        fieldCropDAO.save(mappingUtil.fieldCropConvertToEntity(fieldCropDTO));
+        for (String fieldId : cropDTO.getFields()) {
+            FieldCropDTO fieldCropDTO = new FieldCropDTO(generateFieldCropID(), cropId, fieldId, LocalDate.now());
+            fieldCropDAO.save(mappingUtil.fieldCropConvertToEntity(fieldCropDTO));
+        }
         System.out.println("Crop saved successfully: " + cropDTO);
     }
 
@@ -100,16 +102,16 @@ public class CropServiceIMPL implements CropService {
 
     private String generateFieldCropID() {
         if (fieldCropDAO.count() == 0) {
-            return "FC001";
+            return "X001";
         } else {
             String lastId = fieldCropDAO.findAll().get(fieldCropDAO.findAll().size() - 1).getFieldCropId();
             int newId = Integer.parseInt(lastId.substring(1)) + 1;
             if (newId < 10) {
-                return "FC00" + newId;
+                return "X00" + newId;
             } else if (newId < 100) {
-                return "FC0" + newId;
+                return "X0" + newId;
             } else {
-                return "FC" + newId;
+                return "X" + newId;
             }
         }
     }

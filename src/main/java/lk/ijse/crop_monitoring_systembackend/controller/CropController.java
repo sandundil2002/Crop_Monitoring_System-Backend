@@ -35,6 +35,7 @@ public class CropController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> saveCrop(
+            @Valid
             @RequestPart("commonName") String commonName,
             @RequestPart("scientificName") String scientificName,
             @RequestPart("category") String category,
@@ -45,13 +46,16 @@ public class CropController {
             byte[] img = cropImg.getBytes();
             String base64Img = AppUtil.toBase64Pic(img);
 
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<String> fieldList = objectMapper.readValue(fields, new TypeReference<List<String>>() {});
+
             CropDTO cropDTO = new CropDTO();
             cropDTO.setCommonName(commonName);
             cropDTO.setScientificName(scientificName);
             cropDTO.setCategory(category);
             cropDTO.setSeason(season);
             cropDTO.setCropImg(base64Img);
-            cropDTO.setFields(fields);
+            cropDTO.setFields(fieldList);
             cropService.saveCrop(cropDTO);
             logger.info("Crop saved successfully: " + commonName);
             return new ResponseEntity<>("Crop saved successfully", HttpStatus.CREATED);
