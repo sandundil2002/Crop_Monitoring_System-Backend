@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -19,6 +20,7 @@ public class FieldEntity implements Serializable {
     @Id
     private String fieldId;
     private String fieldName;
+    @ToString.Exclude
     private Point location;
     private String size;
     @Column(columnDefinition = "LONGTEXT")

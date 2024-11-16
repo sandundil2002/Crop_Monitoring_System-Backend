@@ -99,7 +99,16 @@ public class MappingUtil {
 
     //Maters of LogEntity & LogDTO
     public LogDTO logConvertToDTO(LogEntity logEntity) {
-        return modelMapper.map(logEntity, LogDTO.class);
+        LogDTO logDTO = new LogDTO();
+        logDTO.setLogId(logEntity.getLogId());
+        logDTO.setDate(logEntity.getDate());
+        logDTO.setDetails(logEntity.getDetails());
+        logDTO.setObservedImg(logEntity.getObservedImg());
+        logDTO.setTemperature(logEntity.getTemperature());
+        logDTO.setCropId(logEntity.getCrop().getCropId());
+        logDTO.setFieldId(logEntity.getField().getFieldId());
+        logDTO.setStaff(new ArrayList<>());
+        return logDTO;
     }
 
     public LogEntity logConvertToEntity(LogDTO logDTO) {
@@ -138,5 +147,18 @@ public class MappingUtil {
 
     public List<FieldStaffDTO> fieldStaffConvertToDTOList(List<FieldStaffEntity> fieldStaffEntities) {
         return fieldStaffEntities.stream().map(this::fieldStaffConvertToDTO).toList();
+    }
+
+    //Maters of StaffLogEntity & StaffLogDTO
+    public StaffLogDTO staffLogConvertToDTO(StaffLogEntity staffLogEntity) {
+        return modelMapper.map(staffLogEntity, StaffLogDTO.class);
+    }
+
+    public StaffLogEntity staffLogConvertToEntity(StaffLogDTO staffLogDTO) {
+        return modelMapper.map(staffLogDTO, StaffLogEntity.class);
+    }
+
+    public List<StaffLogDTO> staffLogConvertToDTOList(List<StaffLogEntity> staffLogEntities) {
+        return staffLogEntities.stream().map(this::staffLogConvertToDTO).toList();
     }
 }

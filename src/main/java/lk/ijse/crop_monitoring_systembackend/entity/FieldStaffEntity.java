@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -20,7 +21,7 @@ public class FieldStaffEntity implements Serializable {
     private int fieldStaffId;
     @ManyToOne
     @JoinColumn(name = "field_id", referencedColumnName = "fieldId")
-    @JsonIgnore
+    @ToString.Exclude
     private FieldEntity field;
     @ManyToOne
     @JoinColumn(name = "staff_id", referencedColumnName = "staffId")

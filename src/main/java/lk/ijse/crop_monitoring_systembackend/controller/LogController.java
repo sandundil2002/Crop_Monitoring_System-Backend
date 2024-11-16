@@ -45,7 +45,7 @@ public class LogController {
             logDTO.setFieldId(fieldId);
             logDTO.setCropId(cropId);
             logService.saveLog(logDTO);
-            logger.info("Log saved successfully: " + logDTO);
+//            logger.info("Log saved successfully: " + logDTO);
             return new ResponseEntity<>("Log saved successfully", HttpStatus.CREATED);
         } catch (DataPersistFailedException e) {
             e.printStackTrace();

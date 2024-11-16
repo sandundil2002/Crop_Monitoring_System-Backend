@@ -16,9 +16,9 @@ public class StaffLogEntity implements Serializable {
     @Id
     private String staffLogId;
     @ManyToOne
-    @JoinColumn(name = "staff_id")
+    @JoinColumn(name = "staff_id" ,referencedColumnName = "staffId")
     private StaffEntity staffEntity;
     @ManyToOne
-    @JoinColumn(name = "log_id")
+    @JoinColumn(name = "log_id", referencedColumnName = "logId")
     private LogEntity logEntity;
 }
