@@ -19,8 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -47,7 +45,7 @@ public class CropController {
             String base64Img = AppUtil.toBase64Pic(img);
 
             ObjectMapper objectMapper = new ObjectMapper();
-            List<String> fieldList = objectMapper.readValue(fields, new TypeReference<List<String>>() {});
+            List<String> fieldList = objectMapper.readValue(fields, new TypeReference<>() {});
 
             CropDTO cropDTO = new CropDTO();
             cropDTO.setCommonName(commonName);
@@ -78,16 +76,20 @@ public class CropController {
             @RequestPart("scientificName") String scientificName,
             @RequestPart("category") String category,
             @RequestPart("season") String season,
-            @RequestPart("cropImg") MultipartFile cropImg) {
+            @RequestPart("cropImg") MultipartFile cropImg,
+            @RequestPart("fields") String fields) {
         try {
             byte[] img = cropImg.getBytes();
             String base64Img = AppUtil.toBase64Pic(img);
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<String> fieldList = objectMapper.readValue(fields, new TypeReference<>() {});
             CropDTO cropDTO = new CropDTO();
             cropDTO.setCommonName(commonName);
             cropDTO.setScientificName(scientificName);
             cropDTO.setCategory(category);
             cropDTO.setSeason(season);
             cropDTO.setCropImg(base64Img);
+            cropDTO.setFields(fieldList);
             cropService.updateCrop(id, cropDTO);
             logger.info("Crop updated successfully: " + commonName);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

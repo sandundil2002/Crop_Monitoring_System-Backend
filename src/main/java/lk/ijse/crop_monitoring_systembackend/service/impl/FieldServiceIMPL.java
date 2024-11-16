@@ -12,7 +12,6 @@ import lk.ijse.crop_monitoring_systembackend.service.FieldService;
 import lk.ijse.crop_monitoring_systembackend.util.MappingUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,21 +53,15 @@ public class FieldServiceIMPL implements FieldService {
     public void updateField(String id, FieldDTO field) {
         Optional<FieldEntity> tmpFieldEntity = fieldDAO.findById(id);
         if (tmpFieldEntity.isPresent()) {
-            // Update field entity
             FieldEntity fieldEntity = mappingUtil.fieldConvertToEntity(field);
             tmpFieldEntity.get().setFieldName(fieldEntity.getFieldName());
             tmpFieldEntity.get().setLocation(fieldEntity.getLocation());
             tmpFieldEntity.get().setSize(fieldEntity.getSize());
             tmpFieldEntity.get().setFieldImg1(fieldEntity.getFieldImg1());
             tmpFieldEntity.get().setFieldImg2(fieldEntity.getFieldImg2());
-
-            // Save updated field
             fieldDAO.save(tmpFieldEntity.get());
-
-            // Delete existing staff assignments
             fieldStaffDAO.deleteByField_FieldId(id);
 
-            // Create new staff assignments
             for (String staffId : field.getStaffs()) {
                 FieldStaffDTO fieldStaffDTO = new FieldStaffDTO();
                 fieldStaffDTO.setFieldId(id);

@@ -5,6 +5,8 @@ import lk.ijse.crop_monitoring_systembackend.dao.FieldCropDAO;
 import lk.ijse.crop_monitoring_systembackend.dto.CropDTO;
 import lk.ijse.crop_monitoring_systembackend.dto.FieldCropDTO;
 import lk.ijse.crop_monitoring_systembackend.entity.CropEntity;
+import lk.ijse.crop_monitoring_systembackend.entity.FieldCropEntity;
+import lk.ijse.crop_monitoring_systembackend.entity.FieldEntity;
 import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
 import lk.ijse.crop_monitoring_systembackend.service.CropService;
 import lk.ijse.crop_monitoring_systembackend.util.MappingUtil;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -54,6 +57,14 @@ public class CropServiceIMPL implements CropService {
             tmpCropEntity.get().setCategory(cropEntity.getCategory());
             tmpCropEntity.get().setSeason(cropEntity.getSeason());
             tmpCropEntity.get().setCropImg(cropEntity.getCropImg());
+            cropDAO.save(tmpCropEntity.get());
+            fieldCropDAO.deleteByCrop_CropId(id);
+
+            for (String fieldId : crop.getFields()) {
+                FieldCropDTO fieldCropDTO = new FieldCropDTO(generateFieldCropID(), id, fieldId, LocalDate.now());
+                fieldCropDAO.save(mappingUtil.fieldCropConvertToEntity(fieldCropDTO));
+            }
+            System.out.println("Crop updated successfully: " + crop);
         } else {
             throw new NotFoundException("Crop not found with id: " + id);
         }
@@ -62,7 +73,10 @@ public class CropServiceIMPL implements CropService {
     @Override
     public CropDTO searchCrop(String id) {
         if (cropDAO.existsById(id)) {
-            return mappingUtil.cropConvertToDTO(cropDAO.getReferenceById(id));
+            List<FieldCropEntity> byCropCropId = fieldCropDAO.findByCrop_CropId(id);
+            CropDTO cropDTO = mappingUtil.cropConvertToDTO(cropDAO.getReferenceById(id));
+            cropDTO.setFields(byCropCropId.stream().map(FieldCropEntity::getField).map(FieldEntity::getFieldId).collect(Collectors.toList()));
+            return cropDTO;
         } else {
             throw new NotFoundException("Crop not found with id: " + id);
         }
@@ -72,6 +86,7 @@ public class CropServiceIMPL implements CropService {
     public boolean deleteCrop(String id) {
         if (cropDAO.existsById(id)) {
             cropDAO.deleteById(id);
+            fieldCropDAO.deleteByCrop_CropId(id);
             System.out.println("Crop deleted successfully with id: " + id);
             return true;
         } else {
@@ -81,7 +96,12 @@ public class CropServiceIMPL implements CropService {
 
     @Override
     public List<CropDTO> getAllCrops() {
-        return mappingUtil.cropConvertToDTOList(cropDAO.findAll());
+        return cropDAO.findAll().stream().map(cropEntity -> {
+            List<FieldCropEntity> byCropCropId = fieldCropDAO.findByCrop_CropId(cropEntity.getCropId());
+            CropDTO cropDTO = mappingUtil.cropConvertToDTO(cropEntity);
+            cropDTO.setFields(byCropCropId.stream().map(FieldCropEntity::getField).map(FieldEntity::getFieldId).collect(Collectors.toList()));
+            return cropDTO;
+        }).collect(Collectors.toList());
     }
 
     private String generateCropID() {
