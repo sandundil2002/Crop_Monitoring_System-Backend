@@ -3,9 +3,11 @@ package lk.ijse.crop_monitoring_systembackend.util;
 import lk.ijse.crop_monitoring_systembackend.dto.*;
 import lk.ijse.crop_monitoring_systembackend.entity.*;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -37,7 +39,15 @@ public class MappingUtil {
 
     //Maters of FieldEntity & FieldDTO
     public FieldDTO fieldConvertToDTO(FieldEntity fieldEntity) {
-        return modelMapper.map(fieldEntity, FieldDTO.class);
+        FieldDTO fieldDTO = new FieldDTO();
+        fieldDTO.setFieldId(fieldEntity.getFieldId());
+        fieldDTO.setFieldName(fieldEntity.getFieldName());
+        fieldDTO.setLocation(fieldEntity.getLocation());
+        fieldDTO.setSize(fieldEntity.getSize());
+        fieldDTO.setFieldImg1(fieldEntity.getFieldImg1());
+        fieldDTO.setFieldImg2(fieldEntity.getFieldImg2());
+        fieldDTO.setStaffs(new ArrayList<>());
+        return fieldDTO;
     }
 
     public FieldEntity fieldConvertToEntity(FieldDTO fieldDTO) {
@@ -111,5 +121,22 @@ public class MappingUtil {
 
     public List<FieldCropDTO> fieldCropConvertToDTOList(List<FieldCropEntity> fieldCropEntities) {
         return fieldCropEntities.stream().map(this::fieldCropConvertToDTO).toList();
+    }
+
+    //Maters of FieldStaffEntity & FieldStaffDTO
+    public FieldStaffDTO fieldStaffConvertToDTO(FieldStaffEntity fieldStaffEntity) {
+        return modelMapper.map(fieldStaffEntity, FieldStaffDTO.class);
+    }
+
+    public FieldStaffEntity fieldStaffConvertToEntity(FieldStaffDTO fieldStaffDTO) {
+        if (fieldStaffDTO == null) {
+            return null;
+        } else {
+            return modelMapper.map(fieldStaffDTO, FieldStaffEntity.class);
+        }
+    }
+
+    public List<FieldStaffDTO> fieldStaffConvertToDTOList(List<FieldStaffEntity> fieldStaffEntities) {
+        return fieldStaffEntities.stream().map(this::fieldStaffConvertToDTO).toList();
     }
 }

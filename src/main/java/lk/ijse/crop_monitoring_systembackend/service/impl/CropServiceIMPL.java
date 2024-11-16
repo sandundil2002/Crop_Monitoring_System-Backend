@@ -102,16 +102,16 @@ public class CropServiceIMPL implements CropService {
 
     private String generateFieldCropID() {
         if (fieldCropDAO.count() == 0) {
-            return "X001";
+            return "FC001";
         } else {
             String lastId = fieldCropDAO.findAll().get(fieldCropDAO.findAll().size() - 1).getFieldCropId();
-            int newId = Integer.parseInt(lastId.substring(1)) + 1;
+            int newId = Integer.parseInt(lastId.substring(2)) + 1;
             if (newId < 10) {
-                return "X00" + newId;
+                return "FC00" + newId;
             } else if (newId < 100) {
-                return "X0" + newId;
+                return "FC0" + newId;
             } else {
-                return "X" + newId;
+                return "FC" + newId;
             }
         }
     }

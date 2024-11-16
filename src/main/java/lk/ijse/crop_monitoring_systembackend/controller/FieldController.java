@@ -1,5 +1,7 @@
 package lk.ijse.crop_monitoring_systembackend.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import lk.ijse.crop_monitoring_systembackend.customResponse.ErrorResponse;
 import lk.ijse.crop_monitoring_systembackend.customResponse.Response;
@@ -36,19 +38,23 @@ public class FieldController {
             @RequestPart("location") String fieldLocation,
             @RequestPart("size") String fieldSize,
             @RequestPart("fieldImg1") MultipartFile fieldImg1,
-            @RequestPart("fieldImg2") MultipartFile fieldImg2) {
+            @RequestPart("fieldImg2") MultipartFile fieldImg2,
+            @RequestPart("staffs") String staffs) {
         try {
             Point location = AppUtil.parseLocation(fieldLocation);
             byte[] img1 = fieldImg1.getBytes();
             byte[] img2 = fieldImg2.getBytes();
             String base64Img1 = AppUtil.toBase64Pic(img1);
             String base64Img2 = AppUtil.toBase64Pic(img2);
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<String> staffList = objectMapper.readValue(staffs, new TypeReference<>() {});
             FieldDTO fieldDTO = new FieldDTO();
             fieldDTO.setFieldName(fieldName);
             fieldDTO.setLocation(location);
             fieldDTO.setSize(fieldSize);
             fieldDTO.setFieldImg1(base64Img1);
             fieldDTO.setFieldImg2(base64Img2);
+            fieldDTO.setStaffs(staffList);
             fieldService.saveField(fieldDTO);
             logger.info("Field saved successfully: " + fieldName);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -71,19 +77,23 @@ public class FieldController {
             @RequestPart("location") String fieldLocation,
             @RequestPart("size") String fieldSize,
             @RequestPart("fieldImg1") MultipartFile fieldImg1,
-            @RequestPart("fieldImg2") MultipartFile fieldImg2) {
+            @RequestPart("fieldImg2") MultipartFile fieldImg2,
+            @RequestPart("staffs") String staffs) {
         try {
             Point location = AppUtil.parseLocation(fieldLocation);
             byte[] img1 = fieldImg1.getBytes();
             byte[] img2 = fieldImg2.getBytes();
             String base64Img1 = AppUtil.toBase64Pic(img1);
             String base64Img2 = AppUtil.toBase64Pic(img2);
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<String> staffList = objectMapper.readValue(staffs, new TypeReference<>() {});
             FieldDTO fieldDTO = new FieldDTO();
             fieldDTO.setFieldName(fieldName);
             fieldDTO.setLocation(location);
             fieldDTO.setSize(fieldSize);
             fieldDTO.setFieldImg1(base64Img1);
             fieldDTO.setFieldImg2(base64Img2);
+            fieldDTO.setStaffs(staffList);
             fieldService.updateField(id, fieldDTO);
             logger.info("Field updated successfully: " + fieldName);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

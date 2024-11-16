@@ -29,6 +29,5 @@ public class FieldDTO implements Serializable, Response {
     private String fieldImg1;
     @Size(max = 10485760, message = "Image 2 size exceeds maximum allowed length")
     private String fieldImg2;
-    private List<@NotNull(message = "Crop list contains null elements") CropDTO> crops;
-    private List<@NotNull(message = "Staff list contains null elements") StaffDTO> staff;
+    private List<@NotNull(message = "Staff list contains null elements") String> staffs;
 }

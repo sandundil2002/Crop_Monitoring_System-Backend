@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -44,7 +43,7 @@ public class StaffDTO implements Serializable, Response {
     private String email;
     @NotNull(message = "Role is required")
     private Role role;
-    private List<VehicleDTO> vehicles;
+    private String vehicles;
 
     public enum Gender {
         MALE, FEMALE, OTHER
