@@ -51,7 +51,7 @@ public class JWTServiceIMPL implements JWTService {
     private String generateToken(Map<String,Object> extractClaims, UserDetails userDetails){
         extractClaims.put("role",userDetails.getAuthorities());
         Date now = new Date();
-        Date expire = new Date(now.getTime() + 1000 * 600);
+        Date expire = new Date(now.getTime() + 1000 * 60 * 60 * 8); // 8 hours
 
         return Jwts.builder().setClaims(extractClaims)
                 .setSubject(userDetails.getUsername())
@@ -60,20 +60,23 @@ public class JWTServiceIMPL implements JWTService {
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
 
     }
+
     private String refreshToken(Map<String,Object> extractClaims,UserDetails userDetails){
         extractClaims.put("role",userDetails.getAuthorities());
         Date now = new Date();
-        Date expire = new Date(now.getTime() + 1000 * 600);
-        Date refreshExpire = new Date(now.getTime() + 1000 * 600 * 600);
+        Date expire = new Date(now.getTime() + 1000 * 60 * 60 * 8); // 8 hours
+        Date refreshExpire = new Date(now.getTime() + 1000 * 60 * 60 * 24);
 
         return Jwts.builder().setClaims(extractClaims)
                 .setSubject(userDetails.getUsername())
                 .setExpiration(refreshExpire)
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
+
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
+
     private Date extractExpiration(String token) {
         return extractClaim(token,Claims::getExpiration);
     }
@@ -81,6 +84,7 @@ public class JWTServiceIMPL implements JWTService {
         return Jwts.parser().setSigningKey(getSignKey()).build().parseClaimsJws(token)
                 .getBody();
     }
+
     private Key getSignKey(){
         byte[] decode = Decoders.BASE64.decode(jwtKey);
         return Keys.hmacShaKeyFor(decode);
