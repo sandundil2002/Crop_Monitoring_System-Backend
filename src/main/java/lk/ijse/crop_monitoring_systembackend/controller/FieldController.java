@@ -110,6 +110,7 @@ public class FieldController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Response findField(@PathVariable("id") String id) {
         if (id != null) {
@@ -128,6 +129,7 @@ public class FieldController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public  List<FieldDTO> getAllFields() {
         try {

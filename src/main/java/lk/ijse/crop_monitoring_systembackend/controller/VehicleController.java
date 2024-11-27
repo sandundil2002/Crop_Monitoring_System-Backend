@@ -68,6 +68,7 @@ public class VehicleController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Response searchVehicle(@PathVariable("id") String id) {
         if (id != null) {
@@ -86,6 +87,7 @@ public class VehicleController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<VehicleDTO> getAllVehicles() {
         try {

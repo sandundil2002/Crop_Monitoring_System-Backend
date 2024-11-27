@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("/api/v1/log")
 @RequiredArgsConstructor
- @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
+@PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class LogController {
     @Autowired
@@ -94,6 +94,7 @@ public class LogController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Response findLog(@PathVariable String id) {
         if (id != null) {
@@ -111,6 +112,7 @@ public class LogController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<LogDTO> getAllLogs() {
         try {

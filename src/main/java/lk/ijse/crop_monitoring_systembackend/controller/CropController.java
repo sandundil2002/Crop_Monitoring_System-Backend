@@ -115,6 +115,7 @@ public class CropController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Response searchCrop(@PathVariable String id) {
         try {
@@ -127,6 +128,7 @@ public class CropController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CropDTO> getAllCrops() {
         try {

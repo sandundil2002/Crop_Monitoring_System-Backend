@@ -68,6 +68,7 @@ public class EquipmentController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_SCIENTIST')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Response searchEquipment(@PathVariable("id") String id) {
         if (id != null) {
@@ -87,6 +88,7 @@ public class EquipmentController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_SCIENTIST')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<EquipmentDTO> getAllEquipments() {
         try {
