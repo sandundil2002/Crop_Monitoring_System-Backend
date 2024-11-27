@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 @RequestMapping("/api/v1/field")
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FieldController {
     @Autowired
     private FieldService fieldService;

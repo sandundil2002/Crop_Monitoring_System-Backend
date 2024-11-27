@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 public class HealthController {
     private static final Logger logger = Logger.getLogger(HealthController.class.getName());
 
-//    @PreAuthorize("hasRole('ROLE_ADMINISTRATIVE') or hasRole('ROLE_SCIENTIST') or hasRole('ROLE_MANAGER')")
     @GetMapping
     public String checkHealth(){
         logger.info("Crop Monitoring System API is Running");

@@ -22,7 +22,8 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("/api/v1/log")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
+ @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class LogController {
     @Autowired
     private LogService logService;
@@ -47,7 +48,7 @@ public class LogController {
             logDTO.setFieldId(fieldId);
             logDTO.setCropId(cropId);
             logService.saveLog(logDTO);
-//            logger.info("Log saved successfully: " + logDTO);
+           logger.info("Log saved successfully: " + logDTO);
             return new ResponseEntity<>("Log saved successfully", HttpStatus.CREATED);
         } catch (DataPersistFailedException e) {
             e.printStackTrace();

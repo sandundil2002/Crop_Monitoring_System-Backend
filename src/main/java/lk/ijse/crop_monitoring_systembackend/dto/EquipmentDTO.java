@@ -25,6 +25,6 @@ public class EquipmentDTO implements Serializable, Response {
     @NotBlank(message = "Status cannot be blank")
     @Size(max = 50, message = "Status must be at most 50 characters")
     private String status;
-    private List<@NotNull(message = "Staff list contains null elements") StaffDTO> eqStaff;
-    private List<@NotNull(message = "Fields list contains null elements") FieldDTO> eqField;
+    private String eqStaff;
+    private String eqField; 
 }

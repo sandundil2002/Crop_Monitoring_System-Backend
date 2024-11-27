@@ -43,7 +43,7 @@ public class StaffDTO implements Serializable, Response {
     private String email;
     @NotNull(message = "Role is required")
     private Role role;
-    private String vehicles;
+    private String vehicleId;
 
     public enum Gender {
         MALE, FEMALE, OTHER

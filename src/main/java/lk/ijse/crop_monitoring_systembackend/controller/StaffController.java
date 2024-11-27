@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 @RequestMapping("/api/v1/staff")
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMINISTRATIVE')")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class StaffController {
     @Autowired
     private StaffService staffService;

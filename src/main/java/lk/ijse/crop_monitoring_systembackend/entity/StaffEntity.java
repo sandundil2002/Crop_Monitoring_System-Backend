@@ -38,7 +38,7 @@ public class StaffEntity implements Serializable {
     private List<EquipmentEntity> equipment;
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
-    private VehicleEntity vehicle;
+    private VehicleEntity vehicleId;
     @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
     private List<FieldStaffEntity> fieldStaff = new ArrayList<>();
     @OneToMany(mappedBy = "staffEntity", cascade = CascadeType.ALL)

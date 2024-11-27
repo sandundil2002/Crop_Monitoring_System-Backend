@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -97,8 +98,9 @@ public class LogServiceIMPL implements LogService {
             tmpLogEntity.get().setField(logEntity.getField());
             tmpLogEntity.get().setCrop(logEntity.getCrop());
 
-            logDAO.save(tmpLogEntity.get());
-            staffLogDAO.deleteByLogEntity_LogId(id);
+            logDAO.save(tmpLogEntity.get()); // Save the updated log details
+
+            staffLogDAO.deleteByLogEntity_LogId(id); // Delete old staff logs for this log
 
             List<FieldStaffEntity> fieldStaffEntities = fieldStaffDAO.findByField_FieldId(log.getFieldId());
             List<String> staffIds = fieldStaffEntities.stream()
@@ -109,16 +111,21 @@ public class LogServiceIMPL implements LogService {
                 StaffLogDTO staffLogDTO = new StaffLogDTO();
                 staffLogDTO.setLogId(id);
                 staffLogDTO.setStaffId(staffId);
+
+                // Manually assign an ID if necessary
                 StaffLogEntity staffLogEntity = staffLogConvertToEntity(staffLogDTO);
+                staffLogEntity.setStaffLogId(generateStaffLogID());
+
                 staffLogDAO.save(staffLogEntity);
             }
 
-            System.out.println("Log updated successfully: " + log);
-        } else {
-            System.out.println("Log not found with id: " + id);
-            throw new NotFoundException("Log not found with id: " + id);
-        }
+        System.out.println("Log updated successfully: " + log);
+    } else {
+        System.out.println("Log not found with id: " + id);
+        throw new NotFoundException("Log not found with id: " + id);
     }
+}
+
 
     @Override
     public LogDTO searchLog(String id) {

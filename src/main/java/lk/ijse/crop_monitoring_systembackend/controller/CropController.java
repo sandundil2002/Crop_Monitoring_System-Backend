@@ -11,6 +11,7 @@ import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedExceptio
 import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
 import lk.ijse.crop_monitoring_systembackend.service.CropService;
 import lk.ijse.crop_monitoring_systembackend.util.AppUtil;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,7 @@ import java.util.logging.Logger;
 @RequestMapping("/api/v1/crop")
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CropController {
     @Autowired
     private CropService cropService;
@@ -35,54 +37,62 @@ public class CropController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> saveCrop(
-            @Valid
-            @RequestPart("commonName") String commonName,
+            @Valid @RequestPart("commonName") String commonName,
             @RequestPart("scientificName") String scientificName,
             @RequestPart("category") String category,
             @RequestPart("season") String season,
             @RequestPart("cropImg") MultipartFile cropImg,
             @RequestPart("fields") String fields) {
         try {
+            System.out.println("Received commonName: " + commonName);
+            System.out.println("Received fields: " + fields);
+
             byte[] img = cropImg.getBytes();
             String base64Img = AppUtil.toBase64Pic(img);
 
             ObjectMapper objectMapper = new ObjectMapper();
-            List<String> fieldList = objectMapper.readValue(fields, new TypeReference<>() {});
+            List<String> fieldList = objectMapper.readValue(fields, new TypeReference<List<String>>() {
+            });
 
-            CropDTO cropDTO = new CropDTO();
-            cropDTO.setCommonName(commonName);
-            cropDTO.setScientificName(scientificName);
-            cropDTO.setCategory(category);
-            cropDTO.setSeason(season);
-            cropDTO.setCropImg(base64Img);
-            cropDTO.setFields(fieldList);
+            CropDTO cropDTO = CropDTO.builder()
+                    .commonName(commonName)
+                    .scientificName(scientificName)
+                    .category(category)
+                    .season(season)
+                    .cropImg(base64Img)
+                    .fields(fieldList)
+                    .build();
             cropService.saveCrop(cropDTO);
             logger.info("Crop saved successfully: " + commonName);
             return new ResponseEntity<>("Crop saved successfully", HttpStatus.CREATED);
+
         } catch (DataPersistFailedException e) {
             e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            logger.severe("Failed to save crop due to persistence issue: " + commonName);
+            return new ResponseEntity<>("Failed to save crop due to persistence issue", HttpStatus.BAD_REQUEST);
+
         } catch (Exception e) {
             e.printStackTrace();
             logger.severe("Failed to save crop: " + commonName);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to save crop", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> updateCrop(
-            @Valid
             @PathVariable String id,
             @RequestPart("commonName") String commonName,
             @RequestPart("scientificName") String scientificName,
             @RequestPart("category") String category,
             @RequestPart("season") String season,
-            @RequestPart("cropImg") MultipartFile cropImg,
-            @RequestPart("fields") String fields) {
+            @RequestPart(value = "cropImg", required = false) MultipartFile cropImg,
+            @RequestPart("fields") String fields,
+            @RequestPart("base64") String base64) {
         try {
             byte[] img = cropImg.getBytes();
-            String base64Img = AppUtil.toBase64Pic(img);
+            String base64Img = AppUtil.toBase64Pic(img);            
+           
             ObjectMapper objectMapper = new ObjectMapper();
             List<String> fieldList = objectMapper.readValue(fields, new TypeReference<>() {});
             CropDTO cropDTO = new CropDTO();

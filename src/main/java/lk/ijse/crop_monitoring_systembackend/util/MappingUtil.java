@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -15,7 +16,7 @@ public class MappingUtil {
     @Autowired
     private ModelMapper modelMapper;
 
-    //Matters of StaffEntity & StaffDTO
+    // Matters of StaffEntity & StaffDTO
     public StaffDTO staffConvertToDTO(StaffEntity staffEntity) {
         return modelMapper.map(staffEntity, StaffDTO.class);
     }
@@ -28,7 +29,7 @@ public class MappingUtil {
         return staffEntities.stream().map(this::staffConvertToDTO).toList();
     }
 
-    //Maters of UserEntity & UserDTO
+    // Maters of UserEntity & UserDTO
     public UserDTO userConvertToDTO(UserEntity userEntity) {
         return modelMapper.map(userEntity, UserDTO.class);
     }
@@ -37,7 +38,7 @@ public class MappingUtil {
         return modelMapper.map(userDTO, UserEntity.class);
     }
 
-    //Maters of FieldEntity & FieldDTO
+    // Maters of FieldEntity & FieldDTO
     public FieldDTO fieldConvertToDTO(FieldEntity fieldEntity) {
         FieldDTO fieldDTO = new FieldDTO();
         fieldDTO.setFieldId(fieldEntity.getFieldId());
@@ -65,7 +66,7 @@ public class MappingUtil {
         return fieldEntities.stream().map(this::fieldConvertToDTO).toList();
     }
 
-    //Maters of CropEntity & CropDTO
+    // Maters of CropEntity & CropDTO
     public CropDTO cropConvertToDTO(CropEntity cropEntity) {
         return modelMapper.map(cropEntity, CropDTO.class);
     }
@@ -78,20 +79,51 @@ public class MappingUtil {
         return cropEntities.stream().map(this::cropConvertToDTO).toList();
     }
 
-    //Maters of EquipmentEntity & EquipmentDTO
-    public EquipmentDTO equipmentConvertToDTO(EquipmentEntity equipmentEntity) {
-        return modelMapper.map(equipmentEntity, EquipmentDTO.class);
+    // Maters of EquipmentEntity & EquipmentDTO
+    public EquipmentEntity equipmentConvertToEntity(EquipmentDTO equipmentDTO) {
+        EquipmentEntity entity = new EquipmentEntity();
+        entity.setEquipmentId(equipmentDTO.getEquipmentId());
+        entity.setCategory(equipmentDTO.getCategory());
+        entity.setType(equipmentDTO.getType());
+        entity.setStatus(equipmentDTO.getStatus());
+
+        if (equipmentDTO.getEqStaff() != null) {
+            StaffEntity staffEntity = new StaffEntity();
+            staffEntity.setStaffId(equipmentDTO.getEqStaff());
+            entity.setStaff(staffEntity);;
+        }
+
+        if (equipmentDTO.getEqField() != null) {
+            FieldEntity fieldEntity = new FieldEntity();
+            fieldEntity.setFieldId(equipmentDTO.getEqField());
+            entity.setField(fieldEntity);
+        }
+
+        return entity;
     }
 
-    public EquipmentEntity equipmentConvertToEntity(EquipmentDTO equipmentDTO) {
-        return modelMapper.map(equipmentDTO, EquipmentEntity.class);
+    public EquipmentDTO equipmentConvertToDTO(EquipmentEntity entity) {
+        EquipmentDTO dto = new EquipmentDTO();
+        dto.setEquipmentId(entity.getEquipmentId());
+        dto.setCategory(entity.getCategory());
+        dto.setType(entity.getType());
+        dto.setStatus(entity.getStatus());
+
+        if (entity.getStaff() != null) {
+            dto.setEqStaff(entity.getStaff().getStaffId());
+        }
+        if (entity.getField() != null) {
+            dto.setEqField(entity.getField().getFieldId());
+        }
+
+        return dto;
     }
 
     public List<EquipmentDTO> equipmentConvertToDTOList(List<EquipmentEntity> equipmentEntities) {
         return equipmentEntities.stream().map(this::equipmentConvertToDTO).toList();
     }
 
-    //Maters of VehicleEntity & VehicleDTO
+    // Maters of VehicleEntity & VehicleDTO
     public VehicleDTO vehicleConvertToDTO(VehicleEntity vehicleEntity) {
         return modelMapper.map(vehicleEntity, VehicleDTO.class);
     }
@@ -104,7 +136,7 @@ public class MappingUtil {
         return vehicleEntities.stream().map(this::vehicleConvertToDTO).toList();
     }
 
-    //Maters of LogEntity & LogDTO
+    // Maters of LogEntity & LogDTO
     public LogDTO logConvertToDTO(LogEntity logEntity) {
         LogDTO logDTO = new LogDTO();
         logDTO.setLogId(logEntity.getLogId());
@@ -126,7 +158,7 @@ public class MappingUtil {
         return logEntities.stream().map(this::logConvertToDTO).toList();
     }
 
-    //Maters of FieldCropEntity & FieldCropDTO
+    // Maters of FieldCropEntity & FieldCropDTO
     public FieldCropDTO fieldCropConvertToDTO(FieldCropEntity fieldCropEntity) {
         return modelMapper.map(fieldCropEntity, FieldCropDTO.class);
     }
@@ -139,7 +171,7 @@ public class MappingUtil {
         return fieldCropEntities.stream().map(this::fieldCropConvertToDTO).toList();
     }
 
-    //Maters of FieldStaffEntity & FieldStaffDTO
+    // Maters of FieldStaffEntity & FieldStaffDTO
     public FieldStaffDTO fieldStaffConvertToDTO(FieldStaffEntity fieldStaffEntity) {
         return modelMapper.map(fieldStaffEntity, FieldStaffDTO.class);
     }
@@ -152,7 +184,7 @@ public class MappingUtil {
         return fieldStaffEntities.stream().map(this::fieldStaffConvertToDTO).toList();
     }
 
-    //Maters of StaffLogEntity & StaffLogDTO
+    // Maters of StaffLogEntity & StaffLogDTO
     public StaffLogDTO staffLogConvertToDTO(StaffLogEntity staffLogEntity) {
         return modelMapper.map(staffLogEntity, StaffLogDTO.class);
     }

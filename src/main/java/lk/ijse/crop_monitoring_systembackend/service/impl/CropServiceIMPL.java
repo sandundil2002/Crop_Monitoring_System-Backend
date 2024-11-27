@@ -49,21 +49,25 @@ public class CropServiceIMPL implements CropService {
 
     @Override
     public void updateCrop(String id, CropDTO crop) {
-        Optional<CropEntity> tmpCropEntity = cropDAO.findById(id);
-        if (tmpCropEntity.isPresent()) {
-            CropEntity cropEntity = mappingUtil.cropConvertToEntity(crop);
-            tmpCropEntity.get().setCommonName(cropEntity.getCommonName());
-            tmpCropEntity.get().setScientificName(cropEntity.getScientificName());
-            tmpCropEntity.get().setCategory(cropEntity.getCategory());
-            tmpCropEntity.get().setSeason(cropEntity.getSeason());
-            tmpCropEntity.get().setCropImg(cropEntity.getCropImg());
-            cropDAO.save(tmpCropEntity.get());
-            fieldCropDAO.deleteByCrop_CropId(id);
+        Optional<CropEntity> tmpCropEntityOptional = cropDAO.findById(id);
+        if (tmpCropEntityOptional.isPresent()) {
+            CropEntity existingCropEntity = tmpCropEntityOptional.get();
+            CropEntity updatedCropEntity = mappingUtil.cropConvertToEntity(crop);
 
+            existingCropEntity.setCommonName(updatedCropEntity.getCommonName());
+            existingCropEntity.setScientificName(updatedCropEntity.getScientificName());
+            existingCropEntity.setCategory(updatedCropEntity.getCategory());
+            existingCropEntity.setSeason(updatedCropEntity.getSeason());
+            existingCropEntity.setCropImg(updatedCropEntity.getCropImg());
+
+            cropDAO.save(existingCropEntity);
+
+            fieldCropDAO.deleteByCrop_CropId(id);
             for (String fieldId : crop.getFields()) {
                 FieldCropDTO fieldCropDTO = new FieldCropDTO(generateFieldCropID(), id, fieldId, LocalDate.now());
                 fieldCropDAO.save(mappingUtil.fieldCropConvertToEntity(fieldCropDTO));
             }
+
             System.out.println("Crop updated successfully: " + crop);
         } else {
             throw new NotFoundException("Crop not found with id: " + id);

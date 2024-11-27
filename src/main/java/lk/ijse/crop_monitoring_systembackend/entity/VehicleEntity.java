@@ -21,6 +21,6 @@ public class VehicleEntity implements Serializable {
     private String fuelType;
     private String status;
     private String remarks;
-    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "vehicleId", cascade = CascadeType.ALL)
     private List<StaffEntity> staff;
 }

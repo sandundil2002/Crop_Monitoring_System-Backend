@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 @RequestMapping(value = "/api/v1/vehicle")
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMINISTRATIVE')")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class VehicleController {
     @Autowired
     private VehicleService vehicleService;

@@ -18,10 +18,10 @@ public class EquipmentEntity implements Serializable {
     private String category;
     private String type;
     private String status;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "field_id")
     private FieldEntity field;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "staff_id")
     private StaffEntity staff;
 }

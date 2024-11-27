@@ -52,7 +52,7 @@ public class StaffServiceIMPL implements StaffService {
             tmpStaffEntity.get().setMobile(staffEntity.getMobile());
             tmpStaffEntity.get().setEmail(staffEntity.getEmail());
             tmpStaffEntity.get().setRole(staffEntity.getRole());
-            tmpStaffEntity.get().setVehicle(staffEntity.getVehicle());
+            tmpStaffEntity.get().setVehicleId(staffEntity.getVehicleId());
             System.out.println("Staff updated successfully: " + tmpStaffEntity.get());
         } else {
             throw new NotFoundException("Staff not found with id: " + id);
