@@ -26,7 +26,6 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("/api/v1/field")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FieldController {
     @Autowired
@@ -34,6 +33,7 @@ public class FieldController {
 
     private static final Logger logger = Logger.getLogger(FieldController.class.getName());
 
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> saveField(
             @Valid
@@ -72,6 +72,7 @@ public class FieldController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
     @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> updateField(
             @Valid
@@ -110,7 +111,7 @@ public class FieldController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATIVE')")
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST') or hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Response findField(@PathVariable("id") String id) {
         if (id != null) {
@@ -129,7 +130,7 @@ public class FieldController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATIVE')")
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST') or hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public  List<FieldDTO> getAllFields() {
         try {
@@ -142,6 +143,7 @@ public class FieldController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> deleteField(@PathVariable("id") String id) {
         if (id != null) {

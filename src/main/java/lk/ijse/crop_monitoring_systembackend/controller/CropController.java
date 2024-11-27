@@ -27,7 +27,6 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("/api/v1/crop")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CropController {
     @Autowired
@@ -35,6 +34,7 @@ public class CropController {
 
     private static final Logger logger = Logger.getLogger(CropController.class.getName());
 
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> saveCrop(
             @Valid @RequestPart("commonName") String commonName,
@@ -79,6 +79,7 @@ public class CropController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
     @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> updateCrop(
             @PathVariable String id,
@@ -87,8 +88,7 @@ public class CropController {
             @RequestPart("category") String category,
             @RequestPart("season") String season,
             @RequestPart(value = "cropImg", required = false) MultipartFile cropImg,
-            @RequestPart("fields") String fields,
-            @RequestPart("base64") String base64) {
+            @RequestPart("fields") String fields) {
         try {
             byte[] img = cropImg.getBytes();
             String base64Img = AppUtil.toBase64Pic(img);            
@@ -115,7 +115,7 @@ public class CropController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATIVE')")
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST') or hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Response searchCrop(@PathVariable String id) {
         try {
@@ -128,7 +128,7 @@ public class CropController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATIVE')")
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST') or hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CropDTO> getAllCrops() {
         try {
@@ -141,6 +141,7 @@ public class CropController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> deleteCrop(@PathVariable String id) {
         if (id != null) {

@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("/api/v1/log")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class LogController {
     @Autowired
@@ -30,6 +29,7 @@ public class LogController {
 
     private static final Logger logger = Logger.getLogger(LogController.class.getName());
 
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> saveLog(
             @Valid
@@ -62,6 +62,7 @@ public class LogController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
     @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> updateLog(
             @Valid
@@ -94,7 +95,7 @@ public class LogController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATIVE')")
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST') or hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Response findLog(@PathVariable String id) {
         if (id != null) {
@@ -112,7 +113,7 @@ public class LogController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATIVE')")
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST') or hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<LogDTO> getAllLogs() {
         try {
@@ -126,6 +127,7 @@ public class LogController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> deleteLog(@PathVariable String id) {
         if (id != null) {

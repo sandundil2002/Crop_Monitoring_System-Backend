@@ -21,7 +21,6 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("/api/v1/equipment")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMINISTRATIVE')")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EquipmentController {
     @Autowired
@@ -29,6 +28,7 @@ public class EquipmentController {
 
     private static final Logger logger = Logger.getLogger(EquipmentController.class.getName());
 
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMINISTRATIVE')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveEquipment(@Valid @RequestBody EquipmentDTO equipment) {
         if (equipment != null) {
@@ -48,6 +48,7 @@ public class EquipmentController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMINISTRATIVE')")
     @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> updateEquipment(@Valid @PathVariable("id") String id, @RequestBody EquipmentDTO equipment) {
         if (id != null && equipment != null) {
@@ -68,7 +69,7 @@ public class EquipmentController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_SCIENTIST')")
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST') or hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Response searchEquipment(@PathVariable("id") String id) {
         if (id != null) {
@@ -88,7 +89,7 @@ public class EquipmentController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_SCIENTIST')")
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST') or hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<EquipmentDTO> getAllEquipments() {
         try {
@@ -101,6 +102,7 @@ public class EquipmentController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMINISTRATIVE')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> deleteEquipment(@PathVariable("id") String id) {
         if (id != null) {

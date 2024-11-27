@@ -5,6 +5,7 @@ import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedExceptio
 import lk.ijse.crop_monitoring_systembackend.jwtModel.JWTAuthResponse;
 import lk.ijse.crop_monitoring_systembackend.jwtModel.SignIn;
 import lk.ijse.crop_monitoring_systembackend.service.AuthenticationService;
+import lk.ijse.crop_monitoring_systembackend.service.JWTService;
 import lk.ijse.crop_monitoring_systembackend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,10 @@ import java.util.logging.Logger;
 public class AuthController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private JWTService jwtService;
+
     private final AuthenticationService authenticationService;
     private final PasswordEncoder passwordEncoder;
 
@@ -57,6 +62,24 @@ public class AuthController {
     public ResponseEntity<JWTAuthResponse> signIn(@RequestBody SignIn sign) {
         logger.info("User signed in successfully: " + sign);
         return ResponseEntity.ok(authenticationService.signIn(sign));
+    }
+
+    @PostMapping("/validate-token")
+    public ResponseEntity<?> validateToken(@RequestHeader("Authorization") String token) {
+        try {
+            if (token.startsWith("Bearer ")) {
+                token = token.substring(7);
+            }
+
+            boolean isValid = !jwtService.isTokenExpired(token);
+            if (isValid) {
+                return ResponseEntity.ok("Token is valid");
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
+        }
     }
 
     @PostMapping("refresh")
