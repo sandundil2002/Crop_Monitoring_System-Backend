@@ -9,5 +9,6 @@ public interface CropService {
     void updateCrop(String id, CropDTO crop);
     CropDTO searchCrop(String id);
     boolean deleteCrop(String id);
+    List<CropDTO> getCropsBySeason(String season);
     List<CropDTO> getAllCrops();
 }

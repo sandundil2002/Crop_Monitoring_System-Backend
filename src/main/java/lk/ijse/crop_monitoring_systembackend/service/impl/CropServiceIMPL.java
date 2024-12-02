@@ -99,6 +99,16 @@ public class CropServiceIMPL implements CropService {
     }
 
     @Override
+    public List<CropDTO> getCropsBySeason(String season) {
+        return cropDAO.findBySeason(season).stream().map(cropEntity -> {
+            List<FieldCropEntity> byCropCropId = fieldCropDAO.findByCrop_CropId(cropEntity.getCropId());
+            CropDTO cropDTO = mappingUtil.cropConvertToDTO(cropEntity);
+            cropDTO.setFields(byCropCropId.stream().map(FieldCropEntity::getField).map(FieldEntity::getFieldId).collect(Collectors.toList()));
+            return cropDTO;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
     public List<CropDTO> getAllCrops() {
         return cropDAO.findAll().stream().map(cropEntity -> {
             List<FieldCropEntity> byCropCropId = fieldCropDAO.findByCrop_CropId(cropEntity.getCropId());

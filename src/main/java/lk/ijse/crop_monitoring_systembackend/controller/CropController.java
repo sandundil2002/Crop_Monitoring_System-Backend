@@ -129,6 +129,19 @@ public class CropController {
     }
 
     @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST') or hasRole('ROLE_ADMINISTRATIVE')")
+    @GetMapping(value = "/season/{season}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<CropDTO> getCropsBySeason(@PathVariable String season) {
+        try {
+            List<CropDTO> cropsBySeason = cropService.getCropsBySeason(season);
+            logger.info("Crops fetched successfully by season: " + season);
+            return cropsBySeason;
+        } catch (Exception e) {
+            logger.severe("Failed to fetch crops by season: " + season);
+            return null;
+        }
+    }
+
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_SCIENTIST') or hasRole('ROLE_ADMINISTRATIVE')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CropDTO> getAllCrops() {
         try {
