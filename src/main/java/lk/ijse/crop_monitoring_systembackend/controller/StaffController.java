@@ -61,6 +61,7 @@ public class StaffController {
             }catch (DataPersistFailedException e){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }catch (Exception e){
+                e.printStackTrace();
                 logger.severe("Failed to update staff: " + staff);
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }

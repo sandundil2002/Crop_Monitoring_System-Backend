@@ -3,6 +3,7 @@ package lk.ijse.crop_monitoring_systembackend.service.impl;
 import lk.ijse.crop_monitoring_systembackend.dao.VehicleDAO;
 import lk.ijse.crop_monitoring_systembackend.dto.VehicleDTO;
 import lk.ijse.crop_monitoring_systembackend.entity.VehicleEntity;
+import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedException;
 import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
 import lk.ijse.crop_monitoring_systembackend.service.VehicleService;
 import lk.ijse.crop_monitoring_systembackend.util.MappingUtil;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -27,6 +29,7 @@ public class VehicleServiceIMPL implements VehicleService {
     @Override
     public void saveVehicle(VehicleDTO vehicle) {
         vehicle.setVehicleId(generateVehicleID());
+        vehicle.setStatus("Available");
         vehicleDAO.save(mappingUtil.vehicleConvertToEntity(vehicle));
         System.out.println("Vehicle saved successfully: " + vehicle);
     }
@@ -59,8 +62,13 @@ public class VehicleServiceIMPL implements VehicleService {
     @Override
     public boolean deleteVehicle(String id) {
         if (vehicleDAO.existsById(id)) {
-            vehicleDAO.deleteById(id);
-            return true;
+            VehicleEntity vehicle = vehicleDAO.getReferenceById(id);
+            if (!Objects.equals(vehicle.getStatus(), "Assigned")) {
+                vehicleDAO.deleteById(id);
+                return true;
+            } else {
+                throw new DataPersistFailedException("Vehicle is assigned to a staff. Cannot delete vehicle with id: " + id);
+            }
         } else {
             throw new NotFoundException("Vehicle not found with id: " + id);
         }

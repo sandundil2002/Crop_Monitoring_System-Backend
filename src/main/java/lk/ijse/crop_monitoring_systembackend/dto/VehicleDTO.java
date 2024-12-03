@@ -24,8 +24,6 @@ public class VehicleDTO implements Serializable, Response {
     @NotBlank(message = "Fuel type cannot be blank")
     @Size(max = 15, message = "Fuel type must be at most 15 characters")
     private String fuelType;
-    @NotBlank(message = "Status cannot be blank")
-    @Size(max = 50, message = "Status must be at most 50 characters")
     private String status;
     @Size(max = 255, message = "Remarks must be at most 255 characters")
     private String remarks;
