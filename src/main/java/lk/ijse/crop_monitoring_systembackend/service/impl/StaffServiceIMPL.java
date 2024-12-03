@@ -5,6 +5,7 @@ import lk.ijse.crop_monitoring_systembackend.dao.VehicleDAO;
 import lk.ijse.crop_monitoring_systembackend.dto.StaffDTO;
 import lk.ijse.crop_monitoring_systembackend.entity.StaffEntity;
 import lk.ijse.crop_monitoring_systembackend.entity.VehicleEntity;
+import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedException;
 import lk.ijse.crop_monitoring_systembackend.exception.NotFoundException;
 import lk.ijse.crop_monitoring_systembackend.service.StaffService;
 import lk.ijse.crop_monitoring_systembackend.util.MappingUtil;
@@ -35,7 +36,7 @@ public class StaffServiceIMPL implements StaffService {
     public void saveStaff(StaffDTO staff) {
         staff.setStaffId(generateStaffID());
         staff.setJoinedDate(LocalDate.now());
-        updateVehicleStatus(staff.getVehicleId(),"Assigned");
+        saveVehicleStatus(staff.getVehicleId());
         StaffEntity staffEntity = mappingUtil.staffConvertToEntity(staff);
         staffDAO.save(staffEntity);
         System.out.println("Staff saved successfully: " + staffEntity);
@@ -46,16 +47,19 @@ public class StaffServiceIMPL implements StaffService {
     public void updateStaff(String id, StaffDTO staff) {
         StaffEntity reference = staffDAO.getReferenceById(id);
         if (!Objects.equals(reference.getVehicleId().getVehicleId(), staff.getVehicleId())) {
-            if (reference.getVehicleId().getVehicleId() != null) {
+            if (reference.getVehicleId() != null) {
                 updateVehicleStatus(reference.getVehicleId().getVehicleId(), "Available");
             }
+
             if (staff.getVehicleId() != null) {
+                if (vehicleDAO.isVehicleAssigned(staff.getVehicleId())) {
+                    throw new DataPersistFailedException("Vehicle already assigned to another staff");
+                }
                 updateVehicleStatus(staff.getVehicleId(), "Assigned");
             }
         }
 
         Optional<StaffEntity> tmpStaffEntity = staffDAO.findById(id);
-
         if (tmpStaffEntity.isPresent()) {
             StaffEntity staffEntity = mappingUtil.staffConvertToEntity(staff);
             StaffEntity existingStaff = tmpStaffEntity.get();
@@ -117,6 +121,15 @@ public class StaffServiceIMPL implements StaffService {
             } else {
                 return "S" + newId;
             }
+        }
+    }
+
+    private void saveVehicleStatus(String vehicleId) {
+        VehicleEntity vehicle = vehicleDAO.getReferenceById(vehicleId);
+        if (!vehicle.getStatus().equals("Assigned")) {
+            vehicleDAO.updateVehicleStatus(vehicleId, "Assigned");
+        } else {
+            throw new DataPersistFailedException("Failed to update vehicle status");
         }
     }
 

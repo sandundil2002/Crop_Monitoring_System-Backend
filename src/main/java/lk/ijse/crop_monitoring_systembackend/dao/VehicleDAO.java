@@ -14,4 +14,7 @@ public interface VehicleDAO extends JpaRepository<VehicleEntity, String> {
     @Transactional
     @Query("UPDATE VehicleEntity v SET v.status = :status WHERE v.vehicleId = :vehicleId")
     void updateVehicleStatus(@Param("vehicleId") String vehicleId, @Param("status") String status);
+
+    @Query("SELECT CASE WHEN COUNT(v) > 0 THEN true ELSE false END FROM VehicleEntity v WHERE v.vehicleId = :vehicleId AND v.status = 'Assigned'")
+    boolean isVehicleAssigned(@Param("vehicleId") String vehicleId);
 }
