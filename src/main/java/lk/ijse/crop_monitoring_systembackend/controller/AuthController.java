@@ -1,5 +1,7 @@
 package lk.ijse.crop_monitoring_systembackend.controller;
 
+import lk.ijse.crop_monitoring_systembackend.customObj.MailBody;
+import lk.ijse.crop_monitoring_systembackend.customObj.OTPResponse;
 import lk.ijse.crop_monitoring_systembackend.dto.UserDTO;
 import lk.ijse.crop_monitoring_systembackend.exception.DataPersistFailedException;
 import lk.ijse.crop_monitoring_systembackend.jwtModel.JWTAuthResponse;
@@ -7,6 +9,8 @@ import lk.ijse.crop_monitoring_systembackend.jwtModel.SignIn;
 import lk.ijse.crop_monitoring_systembackend.service.AuthenticationService;
 import lk.ijse.crop_monitoring_systembackend.service.JWTService;
 import lk.ijse.crop_monitoring_systembackend.service.UserService;
+import lk.ijse.crop_monitoring_systembackend.util.EmailUtil;
+import lk.ijse.crop_monitoring_systembackend.util.OtpManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.logging.Logger;
 
 @RestController
@@ -30,6 +35,8 @@ public class AuthController {
 
     private final AuthenticationService authenticationService;
     private final PasswordEncoder passwordEncoder;
+    private final OtpManager otpManager;
+    private final EmailUtil emailUtil;
 
     private static final Logger logger = Logger.getLogger(AuthController.class.getName());
 
@@ -85,5 +92,38 @@ public class AuthController {
     @PostMapping("refresh")
     public ResponseEntity<JWTAuthResponse> refreshToken (@RequestParam("refreshToken") String refreshToken) {
         return ResponseEntity.ok(authenticationService.refreshToken(refreshToken));
+    }
+
+    @PostMapping("/send")
+    public ResponseEntity<OTPResponse> sendOtp(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        if (email == null || email.isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        // Generate OTP
+        Integer otp = emailUtil.otpGenerator();
+
+        // Store OTP
+        otpManager.storeOtp(email, otp.toString());
+
+        // Send OTP via email
+        try {
+            MailBody mailBody = MailBody.builder()
+                    .to(email)
+                    .subject("Your OTP Code")
+                    .templateName("otpTemplate")
+                    .replacements(Map.of("otp", otp.toString()))
+                    .build();
+
+            emailUtil.sendHtmlMessage(mailBody);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+
+        // Return OTP response (avoid exposing the OTP in production)
+        OTPResponse response = new OTPResponse(otp.toString(), email);
+        return ResponseEntity.ok(response);
     }
 }

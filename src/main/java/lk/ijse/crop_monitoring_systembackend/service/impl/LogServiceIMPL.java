@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -98,9 +97,9 @@ public class LogServiceIMPL implements LogService {
             tmpLogEntity.get().setField(logEntity.getField());
             tmpLogEntity.get().setCrop(logEntity.getCrop());
 
-            logDAO.save(tmpLogEntity.get()); // Save the updated log details
+            logDAO.save(tmpLogEntity.get());
 
-            staffLogDAO.deleteByLogEntity_LogId(id); // Delete old staff logs for this log
+            staffLogDAO.deleteByLogEntity_LogId(id);
 
             List<FieldStaffEntity> fieldStaffEntities = fieldStaffDAO.findByField_FieldId(log.getFieldId());
             List<String> staffIds = fieldStaffEntities.stream()
@@ -112,7 +111,6 @@ public class LogServiceIMPL implements LogService {
                 staffLogDTO.setLogId(id);
                 staffLogDTO.setStaffId(staffId);
 
-                // Manually assign an ID if necessary
                 StaffLogEntity staffLogEntity = staffLogConvertToEntity(staffLogDTO);
                 staffLogEntity.setStaffLogId(generateStaffLogID());
 

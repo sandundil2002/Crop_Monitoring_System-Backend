@@ -1,73 +1,30 @@
-00:26:57:262 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 31084 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
-00:26:57:269 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
-00:27:05:250 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 8.484 seconds (process running for 9.577)
-00:27:13:867 [http-nio-8080-exec-7] INFO  l.i.c.controller.StaffController - All staffs found
-00:27:13:867 [http-nio-8080-exec-8] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
-00:27:13:927 [http-nio-8080-exec-9] INFO  l.i.c.controller.StaffController - All staffs found
-00:27:14:105 [http-nio-8080-exec-10] INFO  l.i.c.controller.StaffController - All staffs found
-00:27:58:487 [http-nio-8080-exec-4] INFO  l.i.c.controller.StaffController - Staff saved successfully: StaffDTO(staffId=S004, firstName=test, lastName=dilshan, designation=Greenhouse-Manager, gender=MALE, joinedDate=2024-12-04, dateOfBirth=2024-12-14, addressLine1=no, 215, addressLine2=thalgahakanda, addressLine3=kottawa, addressLine4=galle, addressLine5=srilanka, mobile=0745895247, email=test@gmail.com, role=MANAGER, vehicleId=V003)
-00:27:58:514 [http-nio-8080-exec-8] INFO  l.i.c.controller.StaffController - All staffs found
-00:27:58:544 [http-nio-8080-exec-7] INFO  l.i.c.controller.StaffController - All staffs found
-00:28:12:909 [http-nio-8080-exec-1] INFO  l.i.c.controller.StaffController - Staff updated successfully: StaffDTO(staffId=null, firstName=test, lastName=dilshan, designation=Greenhouse-Manager, gender=MALE, joinedDate=null, dateOfBirth=2024-12-14, addressLine1=no,, addressLine2=215, addressLine3=thalgahakanda, addressLine4=kottawa, addressLine5=galle, mobile=0745895247, email=test@gmail.com, role=MANAGER, vehicleId=V002)
-00:28:12:995 [http-nio-8080-exec-2] INFO  l.i.c.controller.StaffController - All staffs found
-00:28:13:027 [http-nio-8080-exec-5] INFO  l.i.c.controller.StaffController - All staffs found
-00:31:08:114 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 19472 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
-00:31:08:118 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
-00:31:13:230 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 5.532 seconds (process running for 6.479)
-00:31:32:879 [http-nio-8080-exec-1] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
-00:31:32:879 [http-nio-8080-exec-3] INFO  l.i.c.controller.StaffController - All staffs found
-00:31:32:939 [http-nio-8080-exec-4] INFO  l.i.c.controller.StaffController - All staffs found
-00:31:32:961 [http-nio-8080-exec-5] INFO  l.i.c.controller.StaffController - All staffs found
-00:31:43:965 [http-nio-8080-exec-9] INFO  l.i.c.controller.StaffController - Staff updated successfully: StaffDTO(staffId=null, firstName=test, lastName=dilshan, designation=Greenhouse-Manager, gender=MALE, joinedDate=null, dateOfBirth=2024-12-14, addressLine1=no,, addressLine2=215, addressLine3=thalgahakanda, addressLine4=kottawa, addressLine5=galle, mobile=0745895247, email=test@gmail.com, role=MANAGER, vehicleId=V002)
-00:31:44:050 [http-nio-8080-exec-10] INFO  l.i.c.controller.StaffController - All staffs found
-00:31:44:074 [http-nio-8080-exec-2] INFO  l.i.c.controller.StaffController - All staffs found
-00:46:43:265 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 28192 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
-00:46:43:279 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
-00:47:07:986 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 25.957 seconds (process running for 28.203)
-00:47:22:662 [http-nio-8080-exec-3] INFO  l.i.c.controller.StaffController - All staffs found
-00:47:22:662 [http-nio-8080-exec-4] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
-00:47:22:841 [http-nio-8080-exec-5] INFO  l.i.c.controller.StaffController - All staffs found
-00:47:23:077 [http-nio-8080-exec-6] INFO  l.i.c.controller.StaffController - All staffs found
-00:47:41:504 [http-nio-8080-exec-10] ERROR l.i.c.controller.StaffController - Failed to update staff: StaffDTO(staffId=null, firstName=test, lastName=dilshan, designation=Greenhouse-Manager, gender=MALE, joinedDate=null, dateOfBirth=2024-12-14, addressLine1=no,, addressLine2=215, addressLine3=thalgahakanda, addressLine4=kottawa, addressLine5=galle, mobile=0745895247, email=test@gmail.com, role=MANAGER, vehicleId=V002)
-00:48:14:967 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 33072 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
-00:48:14:975 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
-00:48:34:613 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 20.789 seconds (process running for 22.631)
-00:48:46:124 [http-nio-8080-exec-4] INFO  l.i.c.controller.StaffController - All staffs found
-00:48:46:124 [http-nio-8080-exec-5] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
-00:48:46:287 [http-nio-8080-exec-6] INFO  l.i.c.controller.StaffController - All staffs found
-00:48:46:648 [http-nio-8080-exec-7] INFO  l.i.c.controller.StaffController - All staffs found
-00:48:59:811 [http-nio-8080-exec-1] INFO  l.i.c.controller.StaffController - Staff updated successfully: StaffDTO(staffId=null, firstName=test, lastName=dilshan, designation=Greenhouse-Manager, gender=MALE, joinedDate=null, dateOfBirth=2024-12-14, addressLine1=no,, addressLine2=215, addressLine3=thalgahakanda, addressLine4=kottawa, addressLine5=galle, mobile=0745895248, email=test@gmail.com, role=MANAGER, vehicleId=V003)
-00:48:59:982 [http-nio-8080-exec-2] INFO  l.i.c.controller.StaffController - All staffs found
-00:49:00:056 [http-nio-8080-exec-3] INFO  l.i.c.controller.StaffController - All staffs found
-00:49:03:758 [http-nio-8080-exec-6] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
-00:49:04:313 [http-nio-8080-exec-10] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
-01:03:09:339 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 22908 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
-01:03:09:346 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
-01:03:22:897 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 14.27 seconds (process running for 15.82)
-01:03:28:669 [http-nio-8080-exec-5] INFO  l.i.c.controller.StaffController - All staffs found
-01:03:28:669 [http-nio-8080-exec-3] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
-01:03:28:787 [http-nio-8080-exec-7] INFO  l.i.c.controller.StaffController - All staffs found
-01:03:28:837 [http-nio-8080-exec-8] INFO  l.i.c.controller.StaffController - All staffs found
-01:03:34:667 [http-nio-8080-exec-10] INFO  l.i.c.controller.StaffController - Staff updated successfully: StaffDTO(staffId=null, firstName=test, lastName=dilshan, designation=Greenhouse-Manager, gender=MALE, joinedDate=null, dateOfBirth=2024-12-14, addressLine1=no,, addressLine2=215, addressLine3=thalgahakanda, addressLine4=kottawa, addressLine5=galle, mobile=0745895248, email=test@gmail.com, role=MANAGER, vehicleId=V003)
-01:03:34:904 [http-nio-8080-exec-4] INFO  l.i.c.controller.StaffController - All staffs found
-01:03:34:970 [http-nio-8080-exec-1] INFO  l.i.c.controller.StaffController - All staffs found
-01:03:38:578 [http-nio-8080-exec-8] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
-01:03:39:063 [http-nio-8080-exec-9] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
-01:04:37:402 [http-nio-8080-exec-2] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
-01:04:37:417 [http-nio-8080-exec-6] INFO  l.i.c.controller.StaffController - All staffs found
-01:04:37:450 [http-nio-8080-exec-3] INFO  l.i.c.controller.StaffController - All staffs found
-01:04:38:038 [http-nio-8080-exec-5] INFO  l.i.c.controller.StaffController - All staffs found
-01:04:51:645 [http-nio-8080-exec-10] INFO  l.i.c.controller.StaffController - Staff updated successfully: StaffDTO(staffId=null, firstName=test, lastName=dilshan, designation=Greenhouse-Manager, gender=MALE, joinedDate=null, dateOfBirth=2024-12-14, addressLine1=no,, addressLine2=215, addressLine3=thalgahakanda, addressLine4=kottawa, addressLine5=galle, mobile=0745895248, email=test@gmail.com, role=MANAGER, vehicleId=V003)
-01:04:51:811 [http-nio-8080-exec-4] INFO  l.i.c.controller.StaffController - All staffs found
-01:04:51:867 [http-nio-8080-exec-1] INFO  l.i.c.controller.StaffController - All staffs found
-01:04:57:285 [http-nio-8080-exec-3] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
-01:04:57:800 [http-nio-8080-exec-5] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
-01:05:09:840 [http-nio-8080-exec-4] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
-01:05:09:848 [http-nio-8080-exec-10] INFO  l.i.c.controller.StaffController - All staffs found
-01:05:09:902 [http-nio-8080-exec-1] INFO  l.i.c.controller.StaffController - All staffs found
-01:05:10:435 [http-nio-8080-exec-2] INFO  l.i.c.controller.StaffController - All staffs found
-01:05:17:005 [http-nio-8080-exec-7] INFO  l.i.c.controller.StaffController - Staff updated successfully: StaffDTO(staffId=null, firstName=test, lastName=trance, designation=Assistant-Farm-Manager, gender=MALE, joinedDate=null, dateOfBirth=2024-12-06, addressLine1=no,, addressLine2=215, addressLine3=thalgahakanda, addressLine4=kottawa, addressLine5=galle, mobile=0745236963, email=ssss@gmail.com, role=MANAGER, vehicleId=V002)
-01:05:17:236 [http-nio-8080-exec-9] INFO  l.i.c.controller.StaffController - All staffs found
-01:05:17:293 [http-nio-8080-exec-8] INFO  l.i.c.controller.StaffController - All staffs found
-01:05:22:102 [http-nio-8080-exec-10] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
-01:05:22:582 [http-nio-8080-exec-1] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
+23:20:12:713 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 20932 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+23:20:12:749 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+23:20:22:135 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 10.024 seconds (process running for 12.945)
+23:29:30:569 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 19732 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+23:29:30:573 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+23:29:40:075 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 9.953 seconds (process running for 11.465)
+23:31:17:463 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 18588 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+23:31:17:467 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+23:31:24:616 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 7.531 seconds (process running for 8.663)
+23:32:06:561 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 17084 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+23:32:06:563 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+23:32:12:536 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 6.357 seconds (process running for 7.487)
+23:39:12:755 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 1424 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+23:39:12:759 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+23:39:20:235 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 7.974 seconds (process running for 9.313)
+23:39:50:057 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 33688 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+23:39:50:059 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+23:39:56:014 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 6.316 seconds (process running for 7.119)
+23:42:57:422 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 31492 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+23:42:57:425 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+23:43:02:952 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 5.899 seconds (process running for 6.667)
+23:43:26:762 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 3940 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+23:43:26:766 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+23:43:32:667 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 6.391 seconds (process running for 7.341)
+23:45:54:345 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 33512 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+23:45:54:347 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+23:46:02:448 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 8.634 seconds (process running for 10.083)
+23:49:03:522 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 24260 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
+23:49:03:529 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
+23:49:10:786 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 7.811 seconds (process running for 8.953)
