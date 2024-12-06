@@ -89,25 +89,21 @@ public class AuthController {
         }
     }
 
-    @PostMapping("refresh")
+    @PostMapping("/refresh")
     public ResponseEntity<JWTAuthResponse> refreshToken (@RequestParam("refreshToken") String refreshToken) {
         return ResponseEntity.ok(authenticationService.refreshToken(refreshToken));
     }
 
-    @PostMapping("/send")
+    @PostMapping("/send_otp")
     public ResponseEntity<OTPResponse> sendOtp(@RequestBody Map<String, String> request) {
         String email = request.get("email");
         if (email == null || email.isEmpty()) {
             return ResponseEntity.badRequest().body(null);
         }
 
-        // Generate OTP
         Integer otp = emailUtil.otpGenerator();
-
-        // Store OTP
         otpManager.storeOtp(email, otp.toString());
 
-        // Send OTP via email
         try {
             MailBody mailBody = MailBody.builder()
                     .to(email)
@@ -122,8 +118,24 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
 
-        // Return OTP response (avoid exposing the OTP in production)
         OTPResponse response = new OTPResponse(otp.toString(), email);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/validate_otp")
+    public ResponseEntity<OTPResponse> validateOtp(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        String otp = request.get("otp");
+
+        if (email == null || otp == null || email.isEmpty() || otp.isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        boolean isValid = otpManager.validateOtp(email, otp);
+        if (isValid) {
+            return ResponseEntity.ok(new OTPResponse(otp, email));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
     }
 }

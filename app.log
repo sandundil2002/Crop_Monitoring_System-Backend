@@ -1,30 +1,12 @@
-23:20:12:713 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 20932 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
-23:20:12:749 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
-23:20:22:135 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 10.024 seconds (process running for 12.945)
-23:29:30:569 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 19732 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
-23:29:30:573 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
-23:29:40:075 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 9.953 seconds (process running for 11.465)
-23:31:17:463 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 18588 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
-23:31:17:467 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
-23:31:24:616 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 7.531 seconds (process running for 8.663)
-23:32:06:561 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 17084 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
-23:32:06:563 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
-23:32:12:536 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 6.357 seconds (process running for 7.487)
-23:39:12:755 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 1424 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
-23:39:12:759 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
-23:39:20:235 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 7.974 seconds (process running for 9.313)
-23:39:50:057 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 33688 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
-23:39:50:059 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
-23:39:56:014 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 6.316 seconds (process running for 7.119)
-23:42:57:422 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 31492 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
-23:42:57:425 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
-23:43:02:952 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 5.899 seconds (process running for 6.667)
-23:43:26:762 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 3940 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
-23:43:26:766 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
-23:43:32:667 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 6.391 seconds (process running for 7.341)
-23:45:54:345 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 33512 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
-23:45:54:347 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
-23:46:02:448 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 8.634 seconds (process running for 10.083)
-23:49:03:522 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Starting CropMonitoringSystemBackendApplication using Java 17.0.7 with PID 24260 (D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend\build\classes\java\main started by Sandun in D:\GDSE 68\Second Semester\AAD\Crop_Monitoring_System-Backend)
-23:49:03:529 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - No active profile set, falling back to 1 default profile: "default"
-23:49:10:786 [main] INFO  l.i.c.CropMonitoringSystemBackendApplication - Started CropMonitoringSystemBackendApplication in 7.811 seconds (process running for 8.953)
+00:12:34:116 [http-nio-8080-exec-2] INFO  l.i.c.controller.CropController - All crops fetched successfully
+00:12:34:516 [http-nio-8080-exec-7] INFO  l.i.c.controller.FieldController - All fields found
+00:12:34:521 [http-nio-8080-exec-10] INFO  l.i.c.controller.CropController - All crops fetched successfully
+00:12:36:839 [http-nio-8080-exec-6] INFO  l.i.c.controller.CropController - Crops fetched successfully by season: Spring
+00:12:36:978 [http-nio-8080-exec-8] INFO  l.i.c.controller.CropController - Crops fetched successfully by season: Summer
+00:12:37:047 [http-nio-8080-exec-1] INFO  l.i.c.controller.CropController - Crops fetched successfully by season: Autumn
+00:12:37:106 [http-nio-8080-exec-5] INFO  l.i.c.controller.CropController - Crops fetched successfully by season: Winter
+00:12:37:144 [http-nio-8080-exec-7] INFO  l.i.c.controller.VehicleController - All vehicles found successfully
+00:12:37:168 [http-nio-8080-exec-2] INFO  l.i.c.controller.EquipmentController - All equipments found successfully: [EquipmentDTO(equipmentId=E001, category=Shovel, type=Other, status=Available, eqStaff=S002, eqField=F001), EquipmentDTO(equipmentId=E002, category=Axe, type=Other, status=Available, eqStaff=S003, eqField=F002)]
+00:12:43:532 [http-nio-8080-exec-10] INFO  l.i.c.controller.FieldController - All fields found
+00:12:43:621 [http-nio-8080-exec-3] INFO  l.i.c.controller.CropController - All crops fetched successfully
+00:12:43:711 [http-nio-8080-exec-6] INFO  l.i.c.controller.StaffController - All staffs found

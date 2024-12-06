@@ -12,19 +12,24 @@ import java.util.concurrent.TimeUnit;
 public class OtpManager {
     private final Map<String, String> otpStorage = new ConcurrentHashMap<>();
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
     public void storeOtp(String email, String otp) {
         otpStorage.put(email, otp);
         scheduleOtpRemoval(email);
     }
+
     private void scheduleOtpRemoval(String email) {
         scheduler.schedule(() -> otpStorage.remove(email), 5, TimeUnit.MINUTES);
     }
+
     public boolean containsKey(String email) {
         return otpStorage.containsKey(email);
     }
+
     public boolean validateOtp(String email, String otp) {
         return containsKey(email) && otpStorage.get(email).equals(otp);
     }
+
     public void removeOtp(String email) {
         otpStorage.remove(email);
     }

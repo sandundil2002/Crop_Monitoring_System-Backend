@@ -36,7 +36,9 @@ public class StaffServiceIMPL implements StaffService {
     public void saveStaff(StaffDTO staff) {
         staff.setStaffId(generateStaffID());
         staff.setJoinedDate(LocalDate.now());
-        saveVehicleStatus(staff.getVehicleId());
+        if (staff.getVehicleId() != null) {
+            saveVehicleStatus(staff.getVehicleId());
+        }
         StaffEntity staffEntity = mappingUtil.staffConvertToEntity(staff);
         staffDAO.save(staffEntity);
         System.out.println("Staff saved successfully: " + staffEntity);
@@ -46,7 +48,10 @@ public class StaffServiceIMPL implements StaffService {
     @Transactional
     public void updateStaff(String id, StaffDTO staff) {
         StaffEntity reference = staffDAO.getReferenceById(id);
-        if (!Objects.equals(reference.getVehicleId().getVehicleId(), staff.getVehicleId())) {
+
+        if (reference.getVehicleId() == null ||
+                !Objects.equals(reference.getVehicleId().getVehicleId(), staff.getVehicleId())) {
+
             if (reference.getVehicleId() != null) {
                 updateVehicleStatus(reference.getVehicleId().getVehicleId(), "Available");
             }
@@ -63,6 +68,7 @@ public class StaffServiceIMPL implements StaffService {
         if (tmpStaffEntity.isPresent()) {
             StaffEntity staffEntity = mappingUtil.staffConvertToEntity(staff);
             StaffEntity existingStaff = tmpStaffEntity.get();
+
             existingStaff.setFirstName(staffEntity.getFirstName());
             existingStaff.setLastName(staffEntity.getLastName());
             existingStaff.setDesignation(staffEntity.getDesignation());
@@ -76,7 +82,7 @@ public class StaffServiceIMPL implements StaffService {
             existingStaff.setMobile(staffEntity.getMobile());
             existingStaff.setEmail(staffEntity.getEmail());
             existingStaff.setRole(staffEntity.getRole());
-            existingStaff.setVehicleId(staffEntity.getVehicleId());
+            existingStaff.setVehicleId(staffEntity.getVehicleId()); // Allow null values
             System.out.println("Staff updated successfully: " + existingStaff);
         } else {
             throw new NotFoundException("Staff not found with id: " + id);
